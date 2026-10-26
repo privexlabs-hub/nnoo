@@ -25,3 +25,7 @@ coverage/
 # test artefacts
 playwright-report/
 test-results/
+
+# Playwright
+**/test-results/
+**/playwright-report/

@@ -12,7 +12,8 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx scripts/migrate.ts",
     "db:check": "drizzle-kit check",
-    "test:contract": "vitest run --project contract"
+    "test:contract": "vitest run --project contract",
+    "e2e:server": "tsx scripts/e2e-server.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.1156.0",
@@ -31,6 +32,7 @@
     "zod": "4.6.7"
   },
   "devDependencies": {
+    "@hono/node-server": "2.1.5",
     "@testcontainers/postgresql": "12.2.1",
     "@types/pg": "8.23.1",
     "drizzle-kit": "0.31.11",

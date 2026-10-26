@@ -1,0 +1,4 @@
+# Test fixtures only (fake values, never real credentials). Exact fingerprints, so new findings still fail.
+# apps/api/tests/unit/helpers.ts EDGE_SECRET: the unit/integration tests' fake edge secret.
+50ddacefe5b56c44f1ea82ab11f0e0a569cc8235:apps/api/tests/unit/helpers.ts:generic-api-key:3
+apps/api/tests/unit/helpers.ts:generic-api-key:3

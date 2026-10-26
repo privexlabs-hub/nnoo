@@ -58,6 +58,25 @@ with header `X-Auth-Session: <token>` → use the returned `accessToken` as `Aut
 **Run a trigger route locally:** they are trigger-safe, so you can call them directly:
 `curl -X POST localhost:<jobs-port>/internal/jobs/drain -H 'x-neon-trigger-invocation-id: local-1' -H 'content-type: application/json' -d '{"version":1,"invocation_id":"local-1","trigger":{"type":"schedule","id":"t","name":"jobs-drain"},"data":{"scheduled_at":"2026-01-01T00:00:00Z"}}'`
 
+**Run the web app:** with `pnpm dev` running, in a second terminal run
+`pnpm --filter @nnoo/web dev`, then open http://localhost:5173.
+
+- The Vite proxy forwards `/v1` to `API_PROXY_TARGET` (default `http://localhost:8787`) and adds
+  `X-Edge-Auth` from `EDGE_AUTH_SECRETS` in `.env.local`.
+- Sign-in codes appear in `.local/otp-inbox.jsonl`.
+- Passkeys work on `localhost`.
+
+**Web end-to-end tests** (Docker; never Neon):
+
+```bash
+pnpm --filter @nnoo/web exec playwright install chromium   # once
+pnpm --filter @nnoo/web test:e2e
+```
+
+These start `apps/api/scripts/e2e-server.ts`: a throwaway Postgres 18 container, migrations, the
+runtime role and fake SMS/email that write to `.local/e2e-inbox.jsonl`. They then start the Vite
+dev server on :5174.
+
 ## 5. Integration tests
 
 ```bash

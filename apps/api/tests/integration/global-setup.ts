@@ -20,7 +20,7 @@ declare module 'vitest' {
   }
 }
 
-async function provisionAppRole(ownerUrl: string): Promise<string> {
+export async function provisionAppRole(ownerUrl: string): Promise<string> {
   const password = `t${randomBytes(18).toString('hex')}A1`;
   const c = new pg.Client({ connectionString: ownerUrl });
   await c.connect();

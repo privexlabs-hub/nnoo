@@ -1,4 +1,5 @@
 import js from '@eslint/js';
+import reactHooks from 'eslint-plugin-react-hooks';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
@@ -48,7 +49,35 @@ export default tseslint.config(
     },
   },
   {
-    files: ['**/scripts/**/*.ts', '**/tests/**/*.ts', '**/*.test.ts'],
+    files: ['apps/web/src/**/*.{ts,tsx}'],
+    plugins: { 'react-hooks': reactHooks },
+    rules: {
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'error',
+      // Clients never decide what is allowed: they read server-computed `capabilities` (docs/01 §4).
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'MemberExpression[property.name=/^roles?$/]',
+          message:
+            'No role checks in clients: use the capabilities the server returns (AGENTS.md).',
+        },
+        {
+          selector: 'Literal[value=/^(custodian|facilitator|moderator|steward|operator)$/]',
+          message:
+            'No role checks in clients: use the capabilities the server returns (AGENTS.md).',
+        },
+      ],
+    },
+  },
+  {
+    files: [
+      '**/scripts/**/*.ts',
+      '**/tests/**/*.ts',
+      '**/*.test.ts',
+      '**/*.test.tsx',
+      '**/e2e/**/*.ts',
+    ],
     rules: { 'no-console': 'off', '@typescript-eslint/no-explicit-any': 'off' },
   },
 );

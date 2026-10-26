@@ -1,6 +1,8 @@
 # 04 · Codebase & folder structure
 
-> **As built (Phase 0):** `apps/api` holds both Neon Function entrypoints (`src/function.api.ts`, `src/function.jobs.ts`), `src/platform/*` (HTTP pipeline, default-deny `route()`, db, jobs, triggers) and `src/modules/{identity,audit}`; `migrations/`; `scripts/` (migrate, build). Packages: `config`, `contracts`, `igbo-text`, `calendar-core`, `design-tokens`. There is no `apps/worker` (ADR-017: `jobs` is a second entrypoint) and no `config-eslint`/`config-ts` package (a root `eslint.config.js` and `tsconfig.base.json` are enough). Boundaries are enforced by `.dependency-cruiser.cjs`. Clients (`apps/mobile`, `apps/web`, `apps/admin`, `apps/marketing`) arrive in their phases.
+> **As built (Phase 0):** `apps/api` holds both Neon Function entrypoints (`src/function.api.ts`, `src/function.jobs.ts`), `src/platform/*` (HTTP pipeline, default-deny `route()`, db, jobs, triggers) and `src/modules/{identity,audit}`; `migrations/`; `scripts/` (migrate, build). Packages: `config`, `contracts`, `igbo-text`, `calendar-core`, `design-tokens`. There is no `apps/worker` (ADR-017: `jobs` is a second entrypoint) and no `config-eslint`/`config-ts` package (a root `eslint.config.js` and `tsconfig.base.json` are enough). Boundaries are enforced by `.dependency-cruiser.cjs`. Clients (`apps/mobile`, `apps/admin`, `apps/marketing`) arrive in their phases.
+>
+> **As built (W0, ADR-033):** `apps/web` is a React + Vite SPA with TanStack Router and Query: `src/api` (fetch client, contract-parsed responses), `src/auth` (sign-in ceremonies, in-memory access token with cookie refresh), `src/layout/Shell.tsx` (left nav, stage, rail), `src/routes/*` and `e2e/` (Playwright). `packages/i18n` holds the UI strings; English is the source and Igbo falls back key by key. Phase 1A also added `apps/audio-worker` (Python) and the `community`, `archive`, `consent`, `media` and `governance` modules.
 
 ## 1. One monorepo, organised by capability
 
