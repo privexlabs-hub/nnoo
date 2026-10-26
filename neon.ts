@@ -34,6 +34,7 @@ function functionEnv(fn: 'api' | 'jobs'): Record<string, string> {
     SMS_PROVIDER: required('SMS_PROVIDER'),
     EMAIL_PROVIDER: required('EMAIL_PROVIDER'),
     ...optional('AUTH_TRUSTED_ORIGINS'),
+    ...optional('AUTH_RP_ID'),
     ...optional('CORS_ALLOWED_ORIGINS'),
     ...optional('MIN_CLIENT_VERSIONS'),
     ...optional('LOG_LEVEL'),

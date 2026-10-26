@@ -43,6 +43,29 @@ describe('loadRuntimeEnv', () => {
     );
   });
 
+  it('requires every trusted origin to sit on the passkey relying-party domain', () => {
+    const prod = {
+      AUTH_BASE_URL: 'https://api.nnoo.app',
+      AUTH_TRUSTED_ORIGINS: 'https://app.nnoo.app',
+    };
+    expect(() => loadRuntimeEnv({ ...base, ...prod })).toThrow(/AUTH_RP_ID/);
+    expect(loadRuntimeEnv({ ...base, ...prod, AUTH_RP_ID: 'nnoo.app' }).AUTH_RP_ID).toBe(
+      'nnoo.app',
+    );
+    expect(() =>
+      loadRuntimeEnv({
+        ...base,
+        ...prod,
+        AUTH_RP_ID: 'nnoo.app',
+        AUTH_TRUSTED_ORIGINS: 'https://evil.example',
+      }),
+    ).toThrow(/AUTH_RP_ID/);
+    // Locally the API and the web dev server share the host `localhost`.
+    expect(
+      loadRuntimeEnv({ ...base, AUTH_TRUSTED_ORIGINS: 'http://localhost:5173' }).AUTH_RP_ID,
+    ).toBeUndefined();
+  });
+
   it('rejects the owner role at runtime (ADR-026)', () => {
     expect(() =>
       loadRuntimeEnv({ ...base, APP_DATABASE_URL: 'postgresql://nnoo_owner:pw@localhost/nnoo' }),

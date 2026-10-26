@@ -133,7 +133,7 @@ export function authOptions({ env, db, sms, email }: AuthDeps) {
         },
       }),
       passkey({
-        rpID: new URL(env.AUTH_BASE_URL).hostname,
+        rpID: env.AUTH_RP_ID ?? new URL(env.AUTH_BASE_URL).hostname,
         rpName: 'Nnọọ',
         origin: trustedOrigins,
       }),

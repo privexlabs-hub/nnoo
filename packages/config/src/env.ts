@@ -42,6 +42,12 @@ const runtimeSchema = z
     AUTH_SECRET: z.string().min(32, 'AUTH_SECRET must be at least 32 characters'),
     AUTH_BASE_URL: z.string().url(),
     AUTH_TRUSTED_ORIGINS: csv.default([]),
+    // WebAuthn relying party (a registrable domain, e.g. nnoo.app) shared by the API and the web
+    // app's origin. Defaults to the API hostname, which only works when they share a host.
+    AUTH_RP_ID: z
+      .string()
+      .regex(/^[a-z0-9.-]+$/, 'AUTH_RP_ID must be a bare hostname')
+      .optional(),
 
     // ADR-023: the edge proxy injects X-Edge-Auth. Two values are accepted during rotation.
     EDGE_AUTH_SECRETS: csv.pipe(z.array(z.string().min(32)).min(1).max(2)),
@@ -122,6 +128,19 @@ const runtimeSchema = z
         message: 'production requires https',
       });
     }
+    // Passkeys: each origin that runs the ceremony must sit on the relying party's domain.
+    const rpId = e.AUTH_RP_ID ?? safeHost(e.AUTH_BASE_URL);
+    for (const o of e.AUTH_TRUSTED_ORIGINS) {
+      const host = safeHost(o);
+      if (!host || !rpId || (host !== rpId && !host.endsWith(`.${rpId}`))) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['AUTH_RP_ID'],
+          message: 'every AUTH_TRUSTED_ORIGINS host must equal AUTH_RP_ID or be a subdomain of it',
+        });
+        break;
+      }
+    }
     const user = safeUser(e.APP_DATABASE_URL);
     if (user !== e.APP_DATABASE_ROLE) {
       ctx.addIssue({
@@ -137,6 +156,14 @@ export type RuntimeEnv = z.infer<typeof runtimeSchema>;
 function safeUser(url: string): string | undefined {
   try {
     return decodeURIComponent(new URL(url).username) || undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+function safeHost(url: string): string | undefined {
+  try {
+    return new URL(url).hostname || undefined;
   } catch {
     return undefined;
   }
