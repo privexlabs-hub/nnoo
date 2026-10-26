@@ -15,6 +15,8 @@ export function testEnv(overrides: Record<string, string> = {}): RuntimeEnv {
     MIN_CLIENT_VERSIONS: '{"mobile":"1.6.0"}',
     SMS_PROVIDER: 'fake',
     EMAIL_PROVIDER: 'fake',
+    STORAGE_PROVIDER: 'fake',
+    AUDIO_WORKER_KEYS: 'worker-key-for-tests-0123456789abcdef',
     LOG_LEVEL: 'error',
     ...overrides,
   });

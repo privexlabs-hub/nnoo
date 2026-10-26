@@ -9,6 +9,7 @@ import { createLogger } from '../../src/platform/logger.ts';
 import { definePolicy, requireActiveAccount } from '../../src/platform/policy.ts';
 import { problem } from '../../src/platform/problem.ts';
 import { allowAll } from '../../src/platform/rate-limit.ts';
+import { FakeStorage } from '../../src/modules/media/public.ts';
 import { BootError, route } from '../../src/platform/route.ts';
 import { EDGE_SECRET, testEnv } from './helpers.ts';
 
@@ -29,7 +30,9 @@ function stubDeps(overrides: Partial<Deps> = {}): Deps {
     sms: { sendOtp: async () => {} },
     email: { sendOtp: async () => {} },
     rateLimiter: allowAll,
+    storage: new FakeStorage(),
     defer: () => {},
+    kick: () => {},
     ...overrides,
   };
 }
@@ -161,7 +164,16 @@ describe('public surface', () => {
   it('answers 503 when a sign-in channel is switched off', async () => {
     const off = createApiApp(
       stubDeps({
-        env: testEnv({ NNOO_ENV: 'preview', SMS_PROVIDER: 'none', EMAIL_PROVIDER: 'none' }),
+        env: testEnv({
+          NNOO_ENV: 'preview',
+          SMS_PROVIDER: 'none',
+          EMAIL_PROVIDER: 'none',
+          STORAGE_PROVIDER: 's3',
+          AWS_ACCESS_KEY_ID: 'test',
+          AWS_SECRET_ACCESS_KEY: 'test',
+          AWS_ENDPOINT_URL_S3: 'https://storage.example.invalid',
+          AWS_REGION: 'eu-central-1',
+        }),
       }),
     );
     const res = await off.request('/v1/auth/phone-number/send-otp', {
@@ -180,5 +192,38 @@ describe('public surface', () => {
     const res = await limited.request('/v1/health', { headers: edge });
     expect(res.status).toBe(429);
     expect(res.headers.get('retry-after')).toBe('7');
+  });
+});
+
+describe('database rule violations', () => {
+  it('maps a coded trigger refusal wrapped by Drizzle to its stable code, and INV-* to a page', async () => {
+    const lines: string[] = [];
+    const app = new Hono<AppEnv>();
+    const { onError } = await import('../../src/platform/middleware.ts');
+    app.onError(onError);
+    app.use('*', async (c, next) => {
+      c.set('deps', stubDeps({ log: createLogger({}, 'info', (l) => lines.push(l)) }));
+      await next();
+    });
+    const wrapped = (message: string) =>
+      Object.assign(new Error('Failed query'), { cause: { code: '23514', message } });
+    app.get('/rule', () => {
+      throw wrapped('consent.evidence_required: evidence must be uploaded');
+    });
+    app.get('/inv', () => {
+      throw wrapped('INV-2: audio for nso recording x');
+    });
+    app.get('/other', () => {
+      throw wrapped('new row violates check constraint "x" with secret value 08012345678');
+    });
+    const rule = await app.request('/rule');
+    expect(rule.status).toBe(409);
+    expect(await rule.json()).toMatchObject({ code: 'consent.evidence_required' });
+    const inv = await app.request('/inv');
+    expect(inv.status).toBe(500);
+    expect(lines.some((l) => l.includes('"page":true') && l.includes('INV-2'))).toBe(true);
+    const other = await app.request('/other');
+    expect(other.status).toBe(500);
+    expect(await other.text()).not.toContain('08012345678');
   });
 });

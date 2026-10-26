@@ -3,6 +3,7 @@ import { bodyLimit } from 'hono/body-limit';
 import { cors } from 'hono/cors';
 import { HTTPException } from 'hono/http-exception';
 import { uuidv7 } from 'uuidv7';
+import { ERROR_CODES, type ErrorCode } from '@nnoo/contracts';
 import { ANONYMOUS, type Actor } from './actor.ts';
 import type { AppEnv } from './app-env.ts';
 import { actorHash, constantTimeEqual } from './crypto.ts';
@@ -161,7 +162,8 @@ export function onError(err: Error, c: Context<AppEnv>): Response {
   }
 
   const deps = c.get('deps') as Deps | undefined;
-  const pg = err as PgLikeError;
+  // Drizzle wraps driver errors (DrizzleQueryError); the Postgres fields are on `cause`.
+  const pg = ((err as { cause?: unknown }).cause ?? err) as PgLikeError;
   const fields = {
     request_id: c.get('requestId'),
     route: c.req.routePath,
@@ -177,6 +179,13 @@ export function onError(err: Error, c: Context<AppEnv>): Response {
       invariant: pg.message.split(':')[0],
     });
     return problemResponse(c, problem('invariant.violation', 500));
+  }
+  // Business rules enforced by triggers raise `<module>.<reason>: …` (e.g. consent.evidence_required).
+  // Only the stable code is returned; the database's wording never is.
+  const raised =
+    pg.code === '23514' ? /^([a-z_]+\.[a-z_]+):/.exec(pg.message ?? '')?.[1] : undefined;
+  if (raised && (ERROR_CODES as readonly string[]).includes(raised)) {
+    return problemResponse(c, problem(raised as ErrorCode, 409));
   }
   deps?.log.error('unhandled error', fields);
   return problemResponse(c, problem('internal.error', 500));

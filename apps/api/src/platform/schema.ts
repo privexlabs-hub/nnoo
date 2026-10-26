@@ -15,6 +15,7 @@ import {
   uniqueIndex,
   uuid,
 } from 'drizzle-orm/pg-core';
+import { bytea } from './db-types.ts';
 
 const tz = (name: string) => timestamp(name, { withTimezone: true });
 
@@ -107,6 +108,8 @@ export const serviceToken = pgTable(
   'service_token',
   {
     jti: uuid('jti').primaryKey(),
+    /** SHA-256 of the token secret; the token itself is never stored. */
+    secretHash: bytea('secret_hash'),
     jobId: bigint('job_id', { mode: 'number' }).notNull(),
     issuedAt: tz('issued_at').notNull().defaultNow(),
     expiresAt: tz('expires_at').notNull(),

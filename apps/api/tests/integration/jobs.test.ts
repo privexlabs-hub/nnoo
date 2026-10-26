@@ -171,12 +171,12 @@ describe('job queue semantics (06 §2)', () => {
       );
 
     const [first] = await mine();
-    expect(await runJob(h.deps.db, registry, first!, () => new Date())).toBe('retry');
+    expect(await runJob(h.deps, registry, first!)).toBe('retry');
     await asOwner((c) =>
       c.query(`update job set run_at = now() where payload->>'tag' = $1`, [tag]),
     ); // skip the backoff wait
     const [second] = await mine();
-    expect(await runJob(h.deps.db, registry, second!, () => new Date())).toBe('failed');
+    expect(await runJob(h.deps, registry, second!)).toBe('failed');
     expect(exhausted).toBe(1);
     const row = await asOwner((c) =>
       c.query(
@@ -206,7 +206,7 @@ describe('job queue semantics (06 §2)', () => {
     const [j] = (await claim(h.deps.db, 'default', 50)).filter(
       (x) => (x.payload as { tag?: string }).tag === tag,
     );
-    expect(await runJob(h.deps.db, registry, j!, () => new Date())).toBe('failed');
+    expect(await runJob(h.deps, registry, j!)).toBe('failed');
   });
 
   it('a worker whose claim expired cannot overwrite a newer attempt', async () => {
@@ -228,13 +228,13 @@ describe('job queue semantics (06 §2)', () => {
     const [fresh] = (await claim(h.deps.db, 'default', 50)).filter(
       (x) => (x.payload as { tag?: string }).tag === tag,
     );
-    expect(await runJob(h.deps.db, registry, stale!, () => new Date())).toBe('lost');
-    expect(await runJob(h.deps.db, registry, fresh!, () => new Date())).toBe('done');
+    expect(await runJob(h.deps, registry, stale!)).toBe('lost');
+    expect(await runJob(h.deps, registry, fresh!)).toBe('done');
   });
 
   it('drain respects its time budget', async () => {
     const registry = createRegistry([], {});
-    const r = await drain(h.deps.db, registry, { budgetMs: 0, now: () => new Date() });
+    const r = await drain(h.deps, registry, { budgetMs: 0 });
     expect(r.stoppedByBudget).toBe(true);
   });
 });

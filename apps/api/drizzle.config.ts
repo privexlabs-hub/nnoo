@@ -7,7 +7,11 @@ import { defineConfig } from 'drizzle-kit';
 // migrations and are declared for queries in *.manual.ts files, outside this glob.
 export default defineConfig({
   dialect: 'postgresql',
-  schema: ['./src/platform/schema.ts', './src/modules/*/infrastructure/schema.ts'],
+  schema: [
+    './src/platform/schema.ts',
+    './src/platform/enums.ts',
+    './src/modules/*/infrastructure/schema.ts',
+  ],
   out: './migrations',
   schemaFilter: ['public', 'auth'],
   strict: true,

@@ -1,5 +1,9 @@
 import type { Hono } from 'hono';
+import { archiveRoutes } from './modules/archive/public.ts';
+import { communityRoutes } from './modules/community/public.ts';
+import { consentRoutes } from './modules/consent/public.ts';
 import { identityRoutes } from './modules/identity/public.ts';
+import { mediaInternalRoutes, mediaRoutes } from './modules/media/public.ts';
 import type { AppEnv } from './platform/app-env.ts';
 import type { Deps } from './platform/deps.ts';
 import { createPlatformApp } from './platform/http.ts';
@@ -9,6 +13,10 @@ import { internalRoutes } from './platform/internal.ts';
 export function createApiApp(deps: Deps): Hono<AppEnv> {
   const app = createPlatformApp(deps, 'public');
   identityRoutes(app);
+  communityRoutes(app);
+  archiveRoutes(app);
+  consentRoutes(app);
+  mediaRoutes(app);
   return app;
 }
 
@@ -16,5 +24,6 @@ export function createApiApp(deps: Deps): Hono<AppEnv> {
 export function createJobsApp(deps: Deps): Hono<AppEnv> {
   const app = createPlatformApp(deps, 'internal');
   internalRoutes(app);
+  mediaInternalRoutes(app);
   return app;
 }

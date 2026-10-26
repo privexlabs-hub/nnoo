@@ -6,6 +6,14 @@ import {
   TopologyError,
 } from './environments.ts';
 
+const s3 = {
+  STORAGE_PROVIDER: 's3',
+  AWS_ACCESS_KEY_ID: 'AKIA-test',
+  AWS_SECRET_ACCESS_KEY: 'secret-test',
+  AWS_ENDPOINT_URL_S3: 'https://storage.example.invalid',
+  AWS_REGION: 'eu-central-1',
+};
+
 const base = {
   NNOO_ENV: 'local',
   APP_DATABASE_URL: 'postgresql://nnoo_app_login:pw@localhost:5432/nnoo',
@@ -14,6 +22,7 @@ const base = {
   EDGE_AUTH_SECRETS: 'e'.repeat(32),
   SMS_PROVIDER: 'fake',
   EMAIL_PROVIDER: 'fake',
+  STORAGE_PROVIDER: 'fake',
 };
 
 describe('loadRuntimeEnv', () => {
@@ -29,7 +38,9 @@ describe('loadRuntimeEnv', () => {
   });
 
   it('rejects fake providers outside local/test', () => {
-    expect(() => loadRuntimeEnv({ ...base, NNOO_ENV: 'staging' })).toThrow(/fake SMS_PROVIDER/);
+    expect(() => loadRuntimeEnv({ ...base, ...s3, NNOO_ENV: 'staging' })).toThrow(
+      /fake SMS_PROVIDER/,
+    );
   });
 
   it('rejects the owner role at runtime (ADR-026)', () => {
@@ -40,12 +51,18 @@ describe('loadRuntimeEnv', () => {
 
   it('allows provider "none" before launch but never in production', () => {
     expect(
-      loadRuntimeEnv({ ...base, NNOO_ENV: 'preview', SMS_PROVIDER: 'none', EMAIL_PROVIDER: 'none' })
-        .SMS_PROVIDER,
+      loadRuntimeEnv({
+        ...base,
+        ...s3,
+        NNOO_ENV: 'preview',
+        SMS_PROVIDER: 'none',
+        EMAIL_PROVIDER: 'none',
+      }).SMS_PROVIDER,
     ).toBe('none');
     expect(() =>
       loadRuntimeEnv({
         ...base,
+        ...s3,
         NNOO_ENV: 'production',
         AUTH_BASE_URL: 'https://api.nnoo.app',
         SMS_PROVIDER: 'none',
@@ -54,10 +71,23 @@ describe('loadRuntimeEnv', () => {
     ).toThrow(/real SMS and email providers/);
   });
 
+  it('refuses fake storage outside local/test and needs S3 credentials for s3', () => {
+    expect(() =>
+      loadRuntimeEnv({
+        ...base,
+        NNOO_ENV: 'preview',
+        SMS_PROVIDER: 'none',
+        EMAIL_PROVIDER: 'none',
+      }),
+    ).toThrow(/fake storage/);
+    expect(() => loadRuntimeEnv({ ...base, STORAGE_PROVIDER: 's3' })).toThrow(/AWS_ACCESS_KEY_ID/);
+  });
+
   it('requires https in production', () => {
     expect(() =>
       loadRuntimeEnv({
         ...base,
+        ...s3,
         NNOO_ENV: 'production',
         SMS_PROVIDER: 'termii',
         EMAIL_PROVIDER: 'resend',

@@ -28,10 +28,7 @@ export function internalRoutes(app: Hono<AppEnv>): void {
     '/internal/jobs/drain',
     'dispatch the outbox and run due jobs',
     async (deps) => {
-      const r = await drain(deps.db, registry, {
-        budgetMs: DRAIN_BUDGET_MS,
-        now: () => deps.clock.now(),
-      });
+      const r = await drain(deps, registry, { budgetMs: DRAIN_BUDGET_MS });
       return { dispatched: r.dispatched, ...r.ran, stoppedByBudget: r.stoppedByBudget };
     },
   );

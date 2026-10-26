@@ -37,3 +37,29 @@ export function requireActiveAccount(actor: Actor): Decision {
   if (actor.status !== 'active') return deny('identity.suspended');
   return ALLOW;
 }
+
+/** Step-up (07 §1): facilitator capture, consent changes and panel decisions need a passkey session. */
+export function requireStepUp(actor: Actor): Decision {
+  const base = requireActiveAccount(actor);
+  if (!base.allow || actor.kind !== 'account') return base;
+  return actor.amr.includes('passkey') ? ALLOW : deny('identity.step_up_required', 401);
+}
+
+/** Holds an active facilitator grant for this hometown. */
+export function isFacilitatorOf(actor: Actor, hometownId: string): boolean {
+  return (
+    actor.kind === 'account' &&
+    actor.roles.some(
+      (r) => r.role === 'facilitator' && r.scopeType === 'hometown' && r.scopeId === hometownId,
+    )
+  );
+}
+
+export function isCustodianOf(actor: Actor, hometownId: string): boolean {
+  return (
+    actor.kind === 'account' &&
+    actor.roles.some(
+      (r) => r.role === 'custodian' && r.scopeType === 'hometown' && r.scopeId === hometownId,
+    )
+  );
+}

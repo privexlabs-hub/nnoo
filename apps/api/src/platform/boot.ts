@@ -11,10 +11,13 @@ import {
   type SmsPort,
 } from '../modules/identity/public.ts';
 import { ProviderNotConfiguredError } from '../modules/identity/infrastructure/ports.ts';
+import { createS3Storage, FakeStorage, type StoragePort } from '../modules/media/public.ts';
 import { systemClock, type Clock } from './clock.ts';
 import { createDatabase, type Database } from './db.ts';
 import type { Deps } from './deps.ts';
 import { createLogger } from './logger.ts';
+import { drain } from './jobs/queue.ts';
+import { registry } from './jobs/registry.ts';
 import { createRateLimiter, type RateLimiter } from './rate-limit.ts';
 
 export type BootOptions = {
@@ -24,9 +27,13 @@ export type BootOptions = {
   sms?: SmsPort;
   email?: EmailPort;
   rateLimiter?: RateLimiter;
+  storage?: StoragePort;
   logSink?: (line: string) => void;
   defer?: (work: Promise<unknown>) => void;
+  kick?: () => void;
 };
+
+const KICK_BUDGET_MS = 10_000;
 
 function fakeInboxFor(env: RuntimeEnv): FakeInbox {
   if (!FAKE_PROVIDER_ENVS.includes(env.NNOO_ENV))
@@ -64,6 +71,16 @@ function providers(env: RuntimeEnv): { sms: SmsPort; email: EmailPort } {
   };
 }
 
+function storageFor(env: RuntimeEnv): StoragePort {
+  if (env.STORAGE_PROVIDER === 'fake') return new FakeStorage(); // local/test only (env validation)
+  return createS3Storage({
+    region: env.AWS_REGION!,
+    endpoint: env.AWS_ENDPOINT_URL_S3!,
+    accessKeyId: env.AWS_ACCESS_KEY_ID!,
+    secretAccessKey: env.AWS_SECRET_ACCESS_KEY!,
+  });
+}
+
 /** Builds every dependency once per isolate. Throws (crashing the boot) on any invalid config. */
 export function boot(opts: BootOptions = {}): Deps & { database: Database } {
   const env = opts.env ?? loadRuntimeEnv();
@@ -84,7 +101,7 @@ export function boot(opts: BootOptions = {}): Deps & { database: Database } {
   const auth = createAuth({ env, db: database.db, sms, email });
   const tokens = createTokenService(auth, clock, new URL(env.AUTH_BASE_URL).origin);
 
-  return {
+  const deps: Deps & { database: Database } = {
     env,
     db: database.db,
     database,
@@ -96,6 +113,7 @@ export function boot(opts: BootOptions = {}): Deps & { database: Database } {
     sms,
     email,
     rateLimiter: opts.rateLimiter ?? createRateLimiter(database.db),
+    storage: opts.storage ?? storageFor(env),
     defer:
       opts.defer ??
       ((work) => {
@@ -104,5 +122,15 @@ export function boot(opts: BootOptions = {}): Deps & { database: Database } {
         );
         waitUntil(tracked);
       }),
+    kick: () => {},
   };
+  // Post-commit kick (ADR-019): a short, bounded drain in the background. The scheduled
+  // jobs-drain trigger is the backstop, so nothing depends on this for correctness.
+  deps.kick =
+    opts.kick ??
+    (() =>
+      deps.defer(
+        drain(deps, registry, { budgetMs: KICK_BUDGET_MS, queues: ['ikpe', 'default', 'notify'] }),
+      ));
+  return deps;
 }

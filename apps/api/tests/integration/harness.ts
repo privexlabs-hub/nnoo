@@ -15,12 +15,17 @@ export function harness(opts: { realRateLimits?: boolean; start?: Date } = {}) {
   const inbox = new FakeInbox();
   const clock = fixedClock(opts.start ?? new Date());
   const env = testEnv({ APP_DATABASE_URL: inject('appUrl') });
+  // Background work (post-commit kicks) is collected so tests can wait for it: settle().
+  const pending: Promise<unknown>[] = [];
+  const logs: string[] = [];
   const deps = boot({
     env,
     clock,
     sms: inbox,
     email: inbox,
-    logSink: () => {},
+    logSink: (l) => logs.push(l),
+    defer: (p) =>
+      void pending.push(p.catch((e: unknown) => logs.push(`deferred failed: ${String(e)}`))),
     ...(opts.realRateLimits
       ? {}
       : { rateLimiter: { take: async () => ({ allowed: true, retryAfterSeconds: 0 }) } }),
@@ -42,7 +47,20 @@ export function harness(opts: { realRateLimits?: boolean; start?: Date } = {}) {
       ...(init.json !== undefined ? { body: JSON.stringify(init.json) } : {}),
     });
 
-  return { deps, inbox, clock, api, jobs, call, close: () => deps.database.pool.end() };
+  const settle = async () => {
+    while (pending.length) await Promise.all(pending.splice(0));
+  };
+  return {
+    deps,
+    inbox,
+    clock,
+    api,
+    jobs,
+    call,
+    logs,
+    settle,
+    close: async () => (await settle(), deps.database.pool.end()),
+  };
 }
 
 export type Harness = ReturnType<typeof harness>;

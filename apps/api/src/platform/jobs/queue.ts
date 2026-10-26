@@ -1,5 +1,6 @@
 import { and, eq, isNull, sql } from 'drizzle-orm';
 import type { Db, Queryable } from '../db.ts';
+import type { Deps } from '../deps.ts';
 import { job, outboxEvent } from '../schema.ts';
 
 export type Queue = 'default' | 'payments' | 'notify' | 'audio' | 'ikpe' | 'ai';
@@ -10,7 +11,8 @@ export class PermanentJobError extends Error {
   override name = 'PermanentJobError';
 }
 
-export type JobContext = { db: Db; now: () => Date };
+/** What a job handler may use: the database, the clock, and the isolate's dependencies (storage…). */
+export type JobContext = { db: Db; now: () => Date; deps: Deps };
 
 export type JobHandler<P = Record<string, unknown>> = {
   type: string;
@@ -159,11 +161,12 @@ export type RunOutcome = 'done' | 'retry' | 'failed' | 'lost';
  * attempts count), so a worker whose lock expired cannot overwrite a newer attempt.
  */
 export async function runJob(
-  db: Db,
+  deps: Deps,
   registry: HandlerRegistry,
   row: JobRow,
-  now: () => Date,
 ): Promise<RunOutcome> {
+  const db = deps.db;
+  const now = () => deps.clock.now();
   const held = and(
     eq(job.id, row.id),
     eq(job.attempts, row.attempts),
@@ -171,7 +174,7 @@ export async function runJob(
     isNull(job.failedAt),
   );
   const handler = registry.handlers.get(row.type);
-  const ctx: JobContext = { db, now };
+  const ctx: JobContext = { db, now, deps };
   if (!handler) {
     const r = await db
       .update(job)
@@ -223,10 +226,11 @@ export type DrainReport = {
 };
 
 export async function drain(
-  db: Db,
+  deps: Deps,
   registry: HandlerRegistry,
-  opts: { budgetMs: number; batch?: number; now: () => Date },
+  opts: { budgetMs: number; batch?: number; queues?: readonly Queue[] },
 ): Promise<DrainReport> {
+  const db = deps.db;
   const deadline = Date.now() + opts.budgetMs;
   const report: DrainReport = {
     dispatched: 0,
@@ -234,7 +238,7 @@ export async function drain(
     stoppedByBudget: false,
   };
   report.dispatched = await dispatchOutbox(db, registry);
-  for (const q of DRAIN_ORDER) {
+  for (const q of opts.queues ?? DRAIN_ORDER) {
     while (true) {
       if (Date.now() >= deadline) {
         report.stoppedByBudget = true;
@@ -242,9 +246,7 @@ export async function drain(
       }
       const batch = await claim(db, q, opts.batch ?? 20);
       if (batch.length === 0) break;
-      const results = await Promise.allSettled(
-        batch.map((row) => runJob(db, registry, row, opts.now)),
-      );
+      const results = await Promise.allSettled(batch.map((row) => runJob(deps, registry, row)));
       for (const r of results) report.ran[r.status === 'fulfilled' ? r.value : 'lost']++;
     }
   }

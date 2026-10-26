@@ -62,11 +62,42 @@ const runtimeSchema = z
     SMS_PROVIDER: z.enum(['none', 'fake', 'termii', 'twilio']),
     EMAIL_PROVIDER: z.enum(['none', 'fake', 'resend', 'smtp']),
 
+    // Object Storage (ADR-020/032). `fake` = in-memory, local/test only. Neon injects AWS_* when buckets are declared.
+    STORAGE_PROVIDER: z.enum(['s3', 'fake']).default('s3'),
+    AWS_ACCESS_KEY_ID: z.string().min(1).optional(),
+    AWS_SECRET_ACCESS_KEY: z.string().min(1).optional(),
+    AWS_ENDPOINT_URL_S3: z.string().url().optional(),
+    AWS_REGION: z.string().min(1).optional(),
+    // Shared secret(s) the audio worker uses to claim jobs (ADR-021); per-job tokens follow. jobs only.
+    AUDIO_WORKER_KEYS: csv.pipe(z.array(z.string().min(32)).max(2)).default([]),
+
     LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).default('info'),
     SENTRY_DSN: z.string().url().optional(),
   })
   .superRefine((e, ctx) => {
     const fakesAllowed = FAKE_PROVIDER_ENVS.includes(e.NNOO_ENV);
+    if (e.STORAGE_PROVIDER === 'fake' && !fakesAllowed) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['STORAGE_PROVIDER'],
+        message: `fake storage is only allowed in ${FAKE_PROVIDER_ENVS.join('/')}`,
+      });
+    }
+    if (e.STORAGE_PROVIDER === 's3') {
+      for (const key of [
+        'AWS_ACCESS_KEY_ID',
+        'AWS_SECRET_ACCESS_KEY',
+        'AWS_ENDPOINT_URL_S3',
+        'AWS_REGION',
+      ] as const) {
+        if (!e[key])
+          ctx.addIssue({
+            code: 'custom',
+            path: [key],
+            message: 'required when STORAGE_PROVIDER=s3',
+          });
+      }
+    }
     for (const key of ['SMS_PROVIDER', 'EMAIL_PROVIDER'] as const) {
       if (e[key] === 'fake' && !fakesAllowed) {
         ctx.addIssue({

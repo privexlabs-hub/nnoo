@@ -1,4 +1,5 @@
 import { sql } from 'drizzle-orm';
+import { mediaConsumes, mediaJobs } from '../../modules/media/public.ts';
 import { createRegistry, type JobHandler } from './queue.ts';
 
 /**
@@ -16,4 +17,7 @@ const ping: JobHandler<{ eventId: number; aggregateId: string }> = {
   },
 };
 
-export const registry = createRegistry([ping as JobHandler], { PlatformPing: ['platform.ping'] });
+export const registry = createRegistry([ping as JobHandler, ...mediaJobs], {
+  PlatformPing: ['platform.ping'],
+  ...mediaConsumes,
+});
