@@ -1,6 +1,6 @@
 # Phase 1 plan: Capture & consent
 
-Status: **proposed. Needs product-owner approval** (AGENTS.md: consent, media access, policies and
+Status: **approved by the product owner, 2026-10-25** (decisions in §8). Consent, media access, policies and triggers are AGENTS.md stop-and-ask areas; this plan is the approval.
 triggers are stop-and-ask areas). Date: 2026-10-25.
 Sources: docs/01 §5, §8, §15; docs/02 §5.1, §5.4, §7; docs/03; docs/06 §3, §5; docs/neon/05, 06 §4,
 10 §Phase 1; Brief v2.1 §07 (facilitator tablet), §20 F-01…F-05, §23, §27, §33; ADR-031; prototype
@@ -144,7 +144,11 @@ There is no hurry."), stage on the right. Screens F-01 to F-04 from the Brief.
 - Copy: `packages/i18n` (en + Igbo phrases), brand voice; tokens from `packages/design-tokens`.
 - Tests: Maestro flows incl. airplane mode and app kill; unit tests for the sync engine.
 
-## 8. Decisions I need from you
+## 8. Decisions (approved 2026-10-25)
+
+**Outcome:** (1) policy table approved, including revocation by **any facilitator of the hometown** with a new spoken statement; (2) **interim council bootstrap** via a CI job with two human approvers; (3) record **who is paid only**, no bank data; (4) audio-worker host decided at the 1A report; (5) 1A before 1B.
+
+Original questions:
 
 1. **Approve the policy table in §5**, especially that any facilitator of the hometown may record a
    revocation with a new spoken statement (06 §8: "the revocation path does not require the
