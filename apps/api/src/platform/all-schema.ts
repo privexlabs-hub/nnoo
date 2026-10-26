@@ -6,5 +6,6 @@ export * from '../modules/community/infrastructure/schema.ts';
 export * from '../modules/archive/infrastructure/schema.ts';
 export * from '../modules/consent/infrastructure/schema.ts';
 export * from '../modules/media/infrastructure/schema.ts';
+export * from '../modules/governance/infrastructure/schema.ts';
 export * from '../modules/identity/infrastructure/schema.ts';
 export * from '../modules/audit/infrastructure/schema.manual.ts';

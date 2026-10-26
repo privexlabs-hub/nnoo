@@ -37,6 +37,7 @@ function functionEnv(fn: 'api' | 'jobs'): Record<string, string> {
     ...optional('CORS_ALLOWED_ORIGINS'),
     ...optional('MIN_CLIENT_VERSIONS'),
     ...optional('LOG_LEVEL'),
+    ...(fn === 'jobs' ? optional('AUDIO_WORKER_KEYS') : {}),
     ...optional('SENTRY_DSN'),
   };
 }
@@ -51,8 +52,25 @@ const prod = nnooEnv === 'production';
 const triggersOn = process.env.NNOO_TRIGGERS !== 'off';
 const schedule = (cron: string, functionPath: string) =>
   ({ type: 'schedule', function: 'jobs', cron, functionPath, enabled: triggersOn }) as const;
+const onObjectCreated = (bucket: 'media-uploads' | 'consent-evidence') =>
+  ({
+    type: 'storage_object_created',
+    function: 'jobs',
+    bucket,
+    functionPath: '/internal/storage/object-created',
+    enabled: triggersOn,
+  }) as const;
 
 export default defineConfig({
+  // All private (the default): playback and uploads use short-lived presigned URLs (ADR-020/032).
+  // Neon injects AWS_* into the functions. Lifecycle rules are not enforced (ADR-032), so expiry
+  // and orphan cleanup are our own jobs.
+  buckets: {
+    'media-uploads': {}, // untrusted raw uploads; deleted after processing; stale sweep after 7 days
+    'media-masters': {}, // FLAC masters, never served
+    'media-derivatives': {}, // Opus, AAC, peaks; served via presigned GET after the policy passes
+    'consent-evidence': {}, // spoken consent statements, signatures; restricted, audited
+  },
   // auth: false — Better Auth runs as a library inside `api` (ADR-028): Managed Auth lacks passkeys/MFA.
   // aiGateway: false — not on the Free plan and not needed before Phase 4 (ADR-029).
   functions: {
@@ -67,6 +85,11 @@ export default defineConfig({
     'jobs-drain': schedule(prod ? '* * * * *' : '*/15 * * * *', '/internal/jobs/drain'),
     invariants: schedule(prod ? '*/10 * * * *' : '0 */6 * * *', '/internal/invariants/check'),
     maintenance: schedule('15 3 * * *', '/internal/maintenance'),
+    // INV-7: unservable media must be gone within 15 minutes. Production checks every 5 minutes.
+    'revocation-sla': schedule(prod ? '*/5 * * * *' : '0 * * * *', '/internal/consent/sla-check'),
+    'media-sweep': schedule('45 3 * * *', '/internal/media/sweep'),
+    'upload-created': onObjectCreated('media-uploads'),
+    'evidence-created': onObjectCreated('consent-evidence'),
   },
   branch: (branch) => {
     if (branch.exists) return {}; // never rewrite settings of an existing branch

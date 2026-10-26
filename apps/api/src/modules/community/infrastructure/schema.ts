@@ -9,6 +9,7 @@ import {
   pgTable,
   primaryKey,
   text,
+  timestamp,
   uniqueIndex,
   uuid,
 } from 'drizzle-orm/pg-core';
@@ -84,4 +85,39 @@ export const hometownDialect = pgTable(
       .on(t.hometownId)
       .where(sql`${t.isPrimary}`),
   ],
+);
+
+// ── facilitators (01 §3: training + 2 custodian sign-offs) ─────────────────────
+export const facilitatorApplication = pgTable(
+  'facilitator_application',
+  {
+    id: uuid('id').primaryKey(),
+    accountId: uuid('account_id').notNull(),
+    hometownId: uuid('hometown_id')
+      .notNull()
+      .references(() => hometown.id),
+    status: text('status').notNull().default('pending'),
+    trainingCompletedAt: timestamp('training_completed_at', { withTimezone: true }),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    decidedAt: timestamp('decided_at', { withTimezone: true }),
+  },
+  (t) => [
+    check('facilitator_app_status', sql`${t.status} in ('pending','approved','withdrawn')`),
+    uniqueIndex('facilitator_app_open')
+      .on(t.accountId, t.hometownId)
+      .where(sql`${t.status} = 'pending'`),
+    index('facilitator_app_hometown').on(t.hometownId, t.status),
+  ],
+);
+
+export const facilitatorSignoff = pgTable(
+  'facilitator_signoff',
+  {
+    applicationId: uuid('application_id')
+      .notNull()
+      .references(() => facilitatorApplication.id),
+    custodianId: uuid('custodian_id').notNull(),
+    signedAt: timestamp('signed_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [primaryKey({ columns: [t.applicationId, t.custodianId] })],
 );

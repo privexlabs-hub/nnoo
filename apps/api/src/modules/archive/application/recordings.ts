@@ -160,15 +160,13 @@ export async function createRecording(
       .returning();
     if (inserted.length === 0) throw problem('archive.recording_exists', 409);
     const revisionId = uuidv7();
-    await tx
-      .insert(recordingRevision)
-      .values({
-        id: revisionId,
-        recordingId: b.id,
-        rev: 1,
-        titleIg: b.titleIg,
-        createdBy: actor.id,
-      });
+    await tx.insert(recordingRevision).values({
+      id: revisionId,
+      recordingId: b.id,
+      rev: 1,
+      titleIg: b.titleIg,
+      createdBy: actor.id,
+    });
     const [updated] = await tx
       .update(recording)
       .set({ currentRevisionId: revisionId })

@@ -11,7 +11,8 @@
     "build": "tsx scripts/build.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx scripts/migrate.ts",
-    "db:check": "drizzle-kit check"
+    "db:check": "drizzle-kit check",
+    "test:contract": "vitest run --project contract"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.1156.0",

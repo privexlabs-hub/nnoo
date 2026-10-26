@@ -1,0 +1,12 @@
+[project]
+name = "nnoo-audio-worker"
+version = "0.1.0"
+description = "Transcodes elder recordings: FLAC master, Opus/AAC derivatives, waveform peaks (ADR-021)."
+requires-python = ">=3.12"
+dependencies = []  # standard library + the ffmpeg/ffprobe binaries only
+
+[project.optional-dependencies]
+test = ["pytest==8.4.2"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

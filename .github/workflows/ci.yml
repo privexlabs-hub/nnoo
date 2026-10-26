@@ -57,6 +57,14 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm test:integration
 
+  audio-worker:
+    # Python + ffmpeg tests run inside the worker's own image (ADR-021).
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t nnoo-audio-worker apps/audio-worker
+      - run: docker run --rm nnoo-audio-worker python -m pytest -q
+
   build:
     runs-on: ubuntu-latest
     steps:

@@ -1,0 +1,45 @@
+# One-time interim custodian council bootstrap (docs/plans/phase-1 §8). Manual only. The
+# `governance-<env>` GitHub environment must require TWO reviewers; their logins are recorded
+# in the governance_event as approvals. Afterwards, only panels grant custodian/facilitator roles.
+name: governance-bootstrap
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'staging or production'
+        required: true
+        type: choice
+        options: [staging, production]
+      council_file:
+        description: 'Path to the council JSON in the repo (charter + custodians: accountId, hometownId)'
+        required: true
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    environment: governance-${{ inputs.environment }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 24, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - name: Collect the two environment approvals
+        id: approvals
+        env: { GH_TOKEN: '${{ github.token }}' }
+        run: |
+          logins=$(gh api "repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/approvals" --jq '[.[] | select(.state=="approved") | .user.login] | unique | join(",")')
+          count=$(echo "$logins" | tr ',' '\n' | grep -c . || true)
+          if [ "$count" -lt 2 ]; then echo "::error::two distinct approvers are required (got: $logins)"; exit 1; fi
+          echo "logins=$logins" >> "$GITHUB_OUTPUT"
+      - name: Bootstrap
+        env:
+          CI: 'true'
+          NNOO_ENV: ${{ inputs.environment }}
+          APP_DATABASE_URL: ${{ secrets.APP_DATABASE_URL }}
+          APPROVERS: ${{ steps.approvals.outputs.logins }}
+        run: pnpm --filter @nnoo/api exec tsx scripts/governance-bootstrap.ts "../../${{ inputs.council_file }}"

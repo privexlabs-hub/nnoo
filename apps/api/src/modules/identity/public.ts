@@ -4,3 +4,4 @@ export { createAuth, type Auth } from './infrastructure/auth.ts';
 export { createTokenService, type TokenService } from './infrastructure/tokens.ts';
 export { FakeInbox, type EmailPort, type SmsPort } from './infrastructure/ports.ts';
 export { identityRoutes } from './http/routes.ts';
+export { grantRole, type GrantRole } from './application/roles.ts';

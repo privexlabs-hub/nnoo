@@ -1,6 +1,6 @@
 import type { Hono } from 'hono';
 import { archiveRoutes } from './modules/archive/public.ts';
-import { communityRoutes } from './modules/community/public.ts';
+import { communityRoutes, facilitatorRoutes } from './modules/community/public.ts';
 import { consentRoutes } from './modules/consent/public.ts';
 import { identityRoutes } from './modules/identity/public.ts';
 import { mediaInternalRoutes, mediaRoutes } from './modules/media/public.ts';
@@ -14,6 +14,7 @@ export function createApiApp(deps: Deps): Hono<AppEnv> {
   const app = createPlatformApp(deps, 'public');
   identityRoutes(app);
   communityRoutes(app);
+  facilitatorRoutes(app);
   archiveRoutes(app);
   consentRoutes(app);
   mediaRoutes(app);

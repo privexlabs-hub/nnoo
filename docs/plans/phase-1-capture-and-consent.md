@@ -171,3 +171,13 @@ Original questions:
 Ikpe, submission and publication (Phase 2); kin verification (Phase 2); pitch targets (Phase 3);
 payments (Phase 5); field alpha on production (needs `nnoo-prod`, a paid plan, legal review and
 your approval).
+
+## 10. Status (2026-10-26): Phase 1A implemented
+
+Built and verified (see the 1A report): storage spike (ADR-032), community reference data and
+facilitator applications, interim-council bootstrap (CI-only), archive, consent (capture, narrow,
+widen, amend, withdraw; stewards; frozen consent), media (resumable multipart, consent-first,
+three-layer Nsọ guard, worker contract, purge, revocation SLA monitor, storage-trigger backstop,
+stale sweep), the Python audio worker, buckets and triggers in `neon.ts`, and a live end-to-end run
+on `nnoo-dev/dev/claude`. Not yet: the Expo facilitator app (1B); the worker's ffmpeg tests have not
+run locally (no Docker/ffmpeg here) and run in CI; the worker host (decision 4).

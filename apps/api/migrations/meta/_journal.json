@@ -36,6 +36,20 @@
       "when": 1792993141746,
       "tag": "0004_custom_capture_rules",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1792995136943,
+      "tag": "0005_governance_and_facilitators",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1792995137773,
+      "tag": "0006_custom_governance_rules",
+      "breakpoints": true
     }
   ]
 }
