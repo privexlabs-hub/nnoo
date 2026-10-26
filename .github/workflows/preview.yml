@@ -1,0 +1,79 @@
+# Per-PR preview on the nnoo-dev project (ADR-024/027): a branch from `seed` (synthetic data
+# only), migrations, functions deployed to that branch, smoke checks; deleted when the PR closes.
+# Needs GitHub environment `preview` with secrets NEON_API_KEY (project-scoped to nnoo-dev),
+# PREVIEW_APP_DB_PASSWORD (nnoo_app_login on seed), and no production secret of any kind.
+name: preview
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  NEON_PROJECT_ID: rapid-queen-34040580 # nnoo-dev (infra/environments.json)
+  BRANCH: preview/pr-${{ github.event.number }}
+
+jobs:
+  deploy:
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    environment: preview
+    env:
+      NEON_API_KEY: ${{ secrets.NEON_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 24, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: npm i -g neon
+      - name: Create branch from seed (idempotent)
+        run: |
+          neon branches get "$BRANCH" --project-id "$NEON_PROJECT_ID" >/dev/null 2>&1 || \
+          neon branches create --project-id "$NEON_PROJECT_ID" --name "$BRANCH" --parent seed \
+            --expires-at "$(date -u -d '+7 days' +%Y-%m-%dT%H:%M:%SZ)" --cu 0.25-1 --no-secrets
+      - name: Migrate (owner, direct host)
+        run: |
+          export MIGRATION_DATABASE_URL="$(neon connection-string "$BRANCH" --project-id "$NEON_PROJECT_ID" --role-name nnoo_owner --database-name nnoo)"
+          NNOO_ENV=preview pnpm db:migrate
+      - name: Write function env (never printed)
+        run: |
+          umask 077
+          POOLED="$(neon connection-string "$BRANCH" --project-id "$NEON_PROJECT_ID" --role-name nnoo_owner --database-name nnoo --pooled)"
+          node -e '
+            const u = new URL(process.argv[1]); u.username = "nnoo_app_login"; u.password = process.env.PREVIEW_APP_DB_PASSWORD;
+            u.searchParams.set("sslmode", "verify-full"); u.searchParams.delete("channel_binding");
+            const r = (n) => require("crypto").randomBytes(n).toString("base64url");
+            require("fs").writeFileSync("preview.env", [
+              "NNOO_ENV=preview", "APP_DATABASE_URL=" + u, "AUTH_SECRET=" + r(36), "AUTH_BASE_URL=https://placeholder.invalid",
+              "EDGE_AUTH_SECRETS=" + r(36), "SMS_PROVIDER=none", "EMAIL_PROVIDER=none", "NNOO_TRIGGERS=on"].join("\n") + "\n");
+          ' "$POOLED"
+        env: { PREVIEW_APP_DB_PASSWORD: '${{ secrets.PREVIEW_APP_DB_PASSWORD }}' }
+      - name: Deploy functions and triggers to the preview branch
+        run: |
+          neon deploy --branch "$BRANCH" --env preview.env --no-env-pull
+          API="$(neon functions get api --branch "$BRANCH" --project-id "$NEON_PROJECT_ID" --output json | node -e 'process.stdin.on("data",d=>console.log(JSON.parse(d).invocation_url.replace(/\/$/,"")))')"
+          sed -i "s#^AUTH_BASE_URL=.*#AUTH_BASE_URL=$API#" preview.env
+          neon deploy --branch "$BRANCH" --env preview.env --no-env-pull
+          echo "API=$API" >> "$GITHUB_ENV"
+      - name: Smoke checks
+        run: |
+          EDGE="$(grep ^EDGE_AUTH_SECRETS= preview.env | cut -d= -f2)"
+          test "$(curl -s -o /dev/null -w '%{http_code}' "$API/v1/health")" = 404
+          test "$(curl -s -o /dev/null -w '%{http_code}' -H "x-edge-auth: $EDGE" "$API/v1/health")" = 200
+          test "$(curl -s -o /dev/null -w '%{http_code}' -H "x-edge-auth: $EDGE" "$API/v1/me")" = 401
+      - if: always()
+        run: rm -f preview.env
+
+  cleanup:
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    environment: preview
+    env:
+      NEON_API_KEY: ${{ secrets.NEON_API_KEY }}
+    steps:
+      - run: npm i -g neon
+      - name: Delete preview branch (with its functions, triggers and forked buckets)
+        run: neon branches delete "$BRANCH" --project-id "$NEON_PROJECT_ID" || echo "already gone"

@@ -1,0 +1,18 @@
+{
+  "$comment": "Non-secret Neon topology (ADR-027). Project ids are identifiers, not credentials. Never put connection strings here.",
+  "dev": {
+    "neonProjectId": "rapid-queen-34040580",
+    "neonProjectName": "nnoo-dev",
+    "region": "aws-eu-central-1",
+    "rootBranch": "seed",
+    "envs": ["local", "test", "preview", "staging"]
+  },
+  "prod": {
+    "neonProjectId": null,
+    "neonProjectName": "nnoo-prod",
+    "region": "aws-eu-central-1",
+    "rootBranch": "main",
+    "envs": ["production"],
+    "dbHostMarkers": []
+  }
+}

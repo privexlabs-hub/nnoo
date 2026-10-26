@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 180" fill="none">
+  <circle cx="100" cy="56" r="44" fill="#c85a26"></circle>
+  <path d="M80 47 Q100 27 120 47" stroke="#faf5ec" stroke-width="5" stroke-linecap="round" fill="none"></path>
+  <path d="M80 65 Q100 85 120 65" stroke="#faf5ec" stroke-width="5" stroke-linecap="round" fill="none"></path>
+  <circle cx="100" cy="56" r="5" fill="#faf5ec"></circle>
+  <text x="100" y="158" text-anchor="middle" font-family="Outfit, system-ui, sans-serif" font-weight="700" font-size="40" letter-spacing="-0.02em" fill="#faf5ec">Nnọọ</text>
+</svg>

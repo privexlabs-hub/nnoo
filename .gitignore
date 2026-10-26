@@ -1,0 +1,27 @@
+# dependencies & build output
+node_modules/
+dist/
+build/
+.turbo/
+coverage/
+*.tsbuildinfo
+.neon-functions/
+
+# secrets & per-developer Neon binding (never commit)
+.env
+.env.*
+!.env.example
+.neon
+*.pem
+*.key
+.local/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# test artefacts
+playwright-report/
+test-results/

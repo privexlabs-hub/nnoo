@@ -1,0 +1,12 @@
+# Copy to wrangler.toml (gitignored values come from `wrangler secret put`).
+name = "nnoo-edge"
+main = "worker.ts"
+compatibility_date = "2026-10-01"
+
+# routes = [{ pattern = "api.nnoo.app", custom_domain = true }]
+
+[vars]
+# ORIGIN_URL = "https://<branch-id>-api.compute.<cell>.eu-central-1.aws.neon.tech"
+
+# Secrets (never in this file):
+#   wrangler secret put EDGE_AUTH_SECRET

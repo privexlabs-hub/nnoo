@@ -1,0 +1,8 @@
+docs/Nnoo/
+docs/nnoo brand identity and marketing system/
+.claude/
+pnpm-lock.yaml
+apps/api/migrations/meta/
+**/dist/
+packages/design-tokens/src/tokens.ts
+packages/design-tokens/src/tokens.css

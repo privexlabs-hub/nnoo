@@ -1,0 +1,51 @@
+/* Shared base for all preview cards.
+   Cards are ~700x<varies>. Minimal chrome — the asset name renders outside. */
+@import url("../colors_and_type.css");
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+body.card {
+  padding: 24px;
+  min-height: 100vh;
+}
+
+.row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.col { display: flex; flex-direction: column; gap: 12px; }
+.grid { display: grid; gap: 12px; }
+
+.swatch {
+  border-radius: 12px;
+  border: 1px solid rgba(26,18,11,0.08);
+  padding: 14px 16px;
+  min-height: 84px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: var(--font-body);
+}
+.swatch .name {
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: -0.005em;
+}
+.swatch .hex {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  opacity: 0.72;
+}
+.swatch.dark .name, .swatch.dark .hex { color: var(--bone); }
+.swatch.light .name, .swatch.light .hex { color: var(--ink-900); }
+
+.token-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--fg-subtle);
+  font-family: var(--font-mono);
+}

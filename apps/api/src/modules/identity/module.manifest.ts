@@ -1,0 +1,20 @@
+export default {
+  name: 'identity',
+  owns: [
+    'account',
+    'role_grant',
+    'guardianship',
+    'device',
+    'session_family',
+    'refresh_token',
+    'auth.user',
+    'auth.session',
+    'auth.account',
+    'auth.verification',
+    'auth.jwks',
+    'auth.passkey',
+  ],
+  dependsOn: ['audit'],
+  emits: [],
+  consumes: [],
+} as const;

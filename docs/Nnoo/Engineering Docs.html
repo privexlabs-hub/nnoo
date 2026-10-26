@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nnọọ — engineering docs</title>
+<link rel="stylesheet" href="shared/colors_and_type.css">
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<style>
+html,body{margin:0;background:var(--bone);color:var(--ink-900);font-family:var(--font-body)}
+a{color:var(--clay-600);text-decoration:none}a:hover{color:var(--clay-700);text-decoration:underline}
+.shell{display:grid;grid-template-columns:minmax(220px,280px) minmax(0,1fr);min-height:100vh}
+nav{background:var(--cream);border-right:1px solid var(--sand);padding:28px 18px;position:sticky;top:0;height:100vh;overflow:auto;box-sizing:border-box}
+.brand{display:flex;align-items:center;gap:10px;padding:0 8px 22px}
+.brand b{font-family:var(--font-display);font-size:18px;letter-spacing:-0.01em}
+.brand i{display:block;font-family:var(--font-archive);font-size:12px;color:var(--ink-500)}
+.navlist{display:flex;flex-direction:column;gap:2px}
+.navlist button{all:unset;cursor:pointer;display:flex;gap:10px;align-items:baseline;padding:9px 10px;border-radius:10px;font-family:var(--font-display);font-weight:500;font-size:14px;color:var(--ink-700)}
+.navlist button span{font-family:var(--font-body);font-size:11px;font-weight:600;color:var(--ink-500);min-width:20px}
+.navlist button:hover{background:var(--clay-50)}
+.navlist button.on{background:var(--paper);color:var(--ink-900);box-shadow:var(--shadow-xs)}
+.navlist button.on span{color:var(--clay-500)}
+.quote{margin-top:24px;padding:14px;border-left:3px solid var(--plum-500);background:var(--paper);border-radius:0 12px 12px 0;font-family:var(--font-archive);font-style:italic;font-size:14px;color:var(--ink-700)}
+main{padding:40px clamp(20px,5vw,64px) 80px;max-width:980px;box-sizing:border-box;width:100%}
+.doc h1{font-family:var(--font-display);font-weight:700;font-size:clamp(28px,4vw,40px);letter-spacing:-0.025em;margin:0 0 18px;line-height:1.1;text-wrap:pretty}
+.doc h2{font-family:var(--font-display);font-weight:600;font-size:22px;letter-spacing:-0.015em;margin:38px 0 10px;padding-top:18px;border-top:1px solid var(--sand)}
+.doc h3{font-family:var(--font-display);font-weight:600;font-size:17px;margin:24px 0 8px}
+.doc p,.doc li{font-size:15px;line-height:1.65;color:var(--ink-700);text-wrap:pretty}
+.doc strong{color:var(--ink-900)}
+.doc blockquote{margin:16px 0;padding:12px 16px;background:var(--cream);border-left:3px solid var(--forest-500);border-radius:0 12px 12px 0}
+.doc blockquote p{margin:0}
+.doc code{font-family:var(--font-mono);font-size:12.5px;background:var(--cream);padding:1px 5px;border-radius:5px;color:var(--clay-800)}
+.doc pre{background:var(--ink-900);color:var(--bone);padding:16px 18px;border-radius:14px;overflow:auto;font-size:12.5px;line-height:1.55}
+.doc pre code{background:none;color:inherit;padding:0}
+.doc table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px;display:block;overflow-x:auto;overflow-y:hidden}
+.doc th{text-align:left;font-family:var(--font-body);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-500);border-bottom:1.5px solid var(--clay-dust);padding:8px 10px;white-space:nowrap}
+.doc td{border-bottom:1px solid var(--sand);padding:8px 10px;vertical-align:top;color:var(--ink-700);line-height:1.5}
+.doc tr:hover td{background:var(--paper)}
+.doc hr{border:none;border-top:1px solid var(--sand);margin:28px 0}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:48px;padding-top:20px;border-top:1px solid var(--sand)}
+.pager button{all:unset;cursor:pointer;font-family:var(--font-display);font-weight:600;font-size:14px;color:var(--clay-600);padding:10px 14px;border-radius:12px;background:var(--clay-50)}
+.pager button:hover{background:var(--clay-100)}
+@media (max-width:760px){.shell{grid-template-columns:1fr}nav{position:static;height:auto}}
+</style>
+</head>
+<body>
+<div class="shell">
+<nav>
+<div class="brand"><img src="shared/assets/logo-mark.svg" width="34" height="34" alt=""><div><b>Nnọọ</b><i>engineering docs</i></div></div>
+<div class="navlist" id="nav"></div>
+<div class="quote">“Igbo enwe eze.” No single actor publishes, passes or overrides. The people decide.</div>
+</nav>
+<main><article class="doc" id="doc">Loading…</article><div class="pager" id="pager"></div></main>
+</div>
+<script>
+const DOCS=[["README.md","—","Overview"],["01-product-requirements.md","01","Product & business rules"],["02-system-architecture.md","02","System architecture"],["03-data-model.md","03","Data model & database"],["04-codebase-structure.md","04","Codebase structure"],["05-stack-and-dependencies.md","05","Stack & dependencies"],["06-security-and-permissions.md","06","Security & permissions"],["07-testing-and-quality.md","07","Testing & quality"],["08-scalability-and-performance.md","08","Scalability & performance"],["09-deployment-and-operations.md","09","Deployment & operations"],["10-documentation-and-governance.md","10","Docs & governance"],["11-roadmap.md","11","Roadmap"],["AGENTS.md","AI","AGENTS.md"]];
+const nav=document.getElementById('nav'),doc=document.getElementById('doc'),pager=document.getElementById('pager');
+let cur=0;try{cur=Math.max(0,DOCS.findIndex(d=>d[0]===localStorage.getItem('nnoo.doc')))}catch(e){}
+DOCS.forEach((d,i)=>{const b=document.createElement('button');b.innerHTML='<span>'+d[1]+'</span>'+d[2];b.onclick=()=>load(i);nav.appendChild(b)});
+async function load(i){cur=i;try{localStorage.setItem('nnoo.doc',DOCS[i][0])}catch(e){}
+[...nav.children].forEach((b,j)=>b.classList.toggle('on',j===i));
+const r=await fetch('docs/'+DOCS[i][0]);const md=await r.text();doc.innerHTML=marked.parse(md);
+doc.querySelectorAll('a[href$=".md"]').forEach(a=>{const f=a.getAttribute('href').split('#')[0];const k=DOCS.findIndex(d=>d[0]===f);if(k>=0){a.onclick=e=>{e.preventDefault();load(k)}}});
+pager.innerHTML='';if(i>0){const p=document.createElement('button');p.textContent='← '+DOCS[i-1][2];p.onclick=()=>load(i-1);pager.appendChild(p)}else pager.appendChild(document.createElement('span'));
+if(i<DOCS.length-1){const n=document.createElement('button');n.textContent=DOCS[i+1][2]+' →';n.onclick=()=>load(i+1);pager.appendChild(n)}
+document.querySelector('main').scrollTop=0;window.scrollTo(0,0)}
+load(cur);
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+{
+  "name": "nnoo",
+  "private": true,
+  "description": "Nn\u1ecd\u1ecd \u2014 records elders with consent, lets kin decide what is kept, teaches the diaspora in the elders' own voices.",
+  "type": "module",
+  "packageManager": "pnpm@12.15.0",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "dev": "neon dev --env .env.local",
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint && pnpm lint:boundaries",
+    "lint:boundaries": "depcruise apps packages tools --config .dependency-cruiser.cjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "turbo run test",
+    "test:integration": "turbo run test:integration --concurrency=1",
+    "db:generate": "pnpm --filter @nnoo/api db:generate",
+    "db:migrate": "pnpm --filter @nnoo/api db:migrate",
+    "db:check": "pnpm --filter @nnoo/api db:check",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@neon/config": "1.9.4",
+    "@neon/env": "1.6.5",
+    "@types/node": "24.19.2",
+    "dependency-cruiser": "18.7.0",
+    "eslint": "10.13.0",
+    "prettier": "3.9.10",
+    "tsx": "4.23.15",
+    "turbo": "2.11.10",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.0",
+    "vitest": "5.0.5"
+  }
+}

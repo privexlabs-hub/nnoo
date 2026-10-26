@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  
+  <defs>
+    <linearGradient id="warm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e17f47"></stop>
+      <stop offset="50%" stop-color="#c85a26"></stop>
+      <stop offset="100%" stop-color="#6d2c4f"></stop>
+    </linearGradient>
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"></feTurbulence>
+      <feColorMatrix values="0 0 0 0 0.2  0 0 0 0 0.1  0 0 0 0 0  0 0 0 0.08 0"></feColorMatrix>
+      <feComposite in2="SourceGraphic" operator="in"></feComposite>
+    </filter>
+  </defs>
+  <rect width="800" height="600" fill="url(#warm)"></rect>
+  <rect width="800" height="600" filter="url(#noise)"></rect>
+  <text x="400" y="310" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-size="22" fill="#faf5ec" fill-opacity="0.55">[ photo placeholder — elder portrait ]</text>
+</svg>

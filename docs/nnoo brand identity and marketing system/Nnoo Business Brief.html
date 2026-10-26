@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nnọọ — Business Brief</title>
+<link rel="icon" href="assets/logo/favicon-clay.svg">
+<link rel="stylesheet" href="assets/tokens.css">
+<style>
+doc-page:not(:defined){visibility:hidden}
+a{color:var(--clay-600);text-decoration:underline;text-underline-offset:2px}a:hover{color:var(--clay-700)}
+.bb{font-family:var(--font-body);font-size:15px;line-height:1.65;color:var(--ink-700)}
+.bb h1{font-family:var(--font-display);font-weight:700;font-size:44px;line-height:1.05;letter-spacing:-0.02em;color:var(--ink-900);margin:0 0 14px}
+.bb h2{font-family:var(--font-display);font-weight:700;font-size:26px;line-height:1.15;letter-spacing:-0.015em;color:var(--ink-900);margin:44px 0 12px;padding-top:18px;border-top:1px solid var(--ink-100)}
+.bb h2 .n{display:block;font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:0.14em;color:var(--clay-600);margin-bottom:6px}
+.bb h3{font-family:var(--font-display);font-weight:600;font-size:17px;line-height:1.3;color:var(--ink-900);margin:24px 0 6px}
+.bb p{margin:0 0 12px}
+.bb strong{color:var(--ink-900);font-weight:600}
+.bb ul,.bb ol{margin:0 0 14px;padding-left:1.3em}.bb li{margin:0 0 5px}
+.bb .lede{font-size:18px;line-height:1.55;color:var(--ink-700);margin:0 0 22px}
+.bb .serif{font-family:var(--font-archive);font-style:italic;color:var(--ink-900)}
+.bb .mast{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:18px;margin-bottom:28px;border-bottom:2px solid var(--clay-500)}
+.bb .mast img{height:34px}
+.bb .mast .meta{font-family:var(--font-mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-500);text-align:right;line-height:1.6}
+.bb .eyebrow{font-family:var(--font-body);font-weight:600;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--clay-600);margin:0 0 10px}
+.bb table{width:100%;border-collapse:collapse;font-size:13.5px;line-height:1.5;margin:10px 0 18px}
+.bb th{text-align:left;font-weight:600;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-500);padding:8px 10px;border-bottom:1.5px solid var(--clay-dust);background:var(--cream)}
+.bb td{padding:9px 10px;border-bottom:1px solid var(--ink-100);vertical-align:top}
+.bb td:first-child{font-weight:600;color:var(--ink-900)}
+.bb .callout{background:var(--cream);border:1px solid var(--sand);border-radius:12px;padding:16px 18px;margin:14px 0 18px}
+.bb .callout p:last-child{margin:0}
+.bb .callout.arch{background:var(--forest-50);border-color:var(--forest-100)}
+.bb .callout.clay{background:var(--clay-500);border:none;color:var(--bone)}
+.bb .callout.clay strong,.bb .callout.clay .serif{color:var(--bone)}
+.bb .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0 20px}
+.bb .stat{border:1px solid var(--ink-100);border-radius:12px;padding:14px;background:var(--paper)}
+.bb .stat b{display:block;font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--clay-600);letter-spacing:-0.01em;line-height:1.1;margin-bottom:4px}
+.bb .stat span{font-size:12.5px;line-height:1.45;color:var(--ink-700);display:block}
+.bb .flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:14px 0 8px}
+.bb .flow div{background:var(--bone);border:1px solid var(--ink-100);border-radius:10px;padding:10px 12px;font-size:12.5px;line-height:1.45}
+.bb .flow div b{display:block;font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;color:var(--clay-600);margin-bottom:3px}
+.bb .cap{font-size:12px;color:var(--ink-500);margin:0 0 18px}
+.bb .tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:var(--clay-100);color:var(--clay-700);vertical-align:1px}
+.bb .tag.v{background:var(--marigold-100);color:var(--marigold-700)}
+.bb code{font-family:var(--font-mono);font-size:12.5px;color:var(--clay-700)}
+.bb .callout,.bb .stat,.bb .flow,.bb .stats{break-inside:avoid}
+.bb .callout p,.bb .stat span{orphans:3;widows:3}
+.bb .appx{break-before:page}
+@media (max-width:640px){.bb .stats,.bb .flow{grid-template-columns:minmax(0,1fr)}.bb h1{font-size:34px}}
+</style>
+</head>
+<body>
+<doc-page margin="0.75in">
+<div class="bb">
+
+<div class="mast">
+<img src="assets/logo/lockup-horizontal-primary.svg" alt="Nnọọ">
+<div class="meta">Business brief · v1.0<br>September 2026 · Internal &amp; partner</div>
+</div>
+
+<h1>Nnọọ — business brief</h1>
+<p class="lede">A voice-first platform that records the living culture of Ndị Igbo from elders, keeps it with its provenance, and teaches it to the diaspora with honest pronunciation feedback. <span class="serif">Two hands, one body.</span></p>
+
+<div class="callout">
+<p class="eyebrow">How to read this</p>
+<p>This brief explains the whole project end to end: the problem, the product and every feature, how facilitators, learners and elders use it, who it serves, how it makes and spends money, how it reaches people, how it is governed, and what happens next. Anything marked <span class="tag v">Validate</span> is a working assumption, not a verified fact — it must be tested before being quoted externally.</p>
+</div>
+
+<h2><span class="n">01</span>Executive summary</h2>
+<p><strong>Nnọọ</strong> (Igbo: <em>welcome</em>) is two products that feed each other:</p>
+<ol>
+<li><strong>Ọbá — the archive.</strong> Trained community facilitators sit with Igbo elders and record language, proverbs, stories, songs, recipes, ceremonies and place-histories. Every recording is stored with full provenance — who, where, when, which dialect — and with the elder's written consent and co-ownership.</li>
+<li><strong>Nnọọ Learn — the app.</strong> Short lessons built from those real recordings teach diaspora children and adults to speak Igbo, with tonal pronunciation feedback so learners hear and correct the tones that change meaning.</li>
+</ol>
+<p>A third layer, <strong>Ọha — the community</strong>, connects diaspora Igbo by state, LGA, hometown and dialect, and is the main engine that recruits new elders and facilitators back into the archive.</p>
+<p><strong>The bet:</strong> the diaspora wants to learn from its own people, not from a generic flash-card app — and the act of learning can fund and grow the act of preserving.</p>
+<div class="stats">
+<div class="stat"><b>3 audiences</b><span>Elders &amp; facilitators · diaspora learners · funders &amp; partners</span></div>
+<div class="stat"><b>6 surfaces</b><span>Learn app · Ọbá archive · Ikpe council · Facilitator mode · Ọha community · marketing site</span></div>
+<div class="stat"><b>1 promise</b><span>Every recording kept with the elder's name and permission. No exceptions.</span></div>
+</div>
+
+<h2><span class="n">02</span>The problem</h2>
+<h3>Language is passing faster than it is being passed on</h3>
+<p>Igbo is spoken by tens of millions of people, yet in many families — especially urban and diaspora families — children grow up understanding a few greetings and little else. The people who hold the deepest knowledge of dialect, proverb, ceremony and local history are elders, and that knowledge is rarely recorded in a form the next generation can use. <span class="tag v">Validate</span> speaker numbers and intergenerational-transmission data before external use.</p>
+<h3>What exists today does not close the gap</h3>
+<table>
+<thead><tr><th>Current option</th><th>What it does well</th><th>What it misses</th></tr></thead>
+<tbody>
+<tr><td>General language apps</td><td>Habit loops, polish, scale</td><td>Limited or no Igbo; no tone feedback; no dialects; no connection to real speakers</td></tr>
+<tr><td>YouTube / social tutors</td><td>Free, personable</td><td>Unstructured; no progression; no provenance</td></tr>
+<tr><td>Dictionaries &amp; academic archives</td><td>Rigour, depth</td><td>Hard to access; not built to teach children; often extractive toward communities</td></tr>
+<tr><td>Family &amp; Saturday schools</td><td>Warmth, real speakers</td><td>Depends on who is nearby; inconsistent; nothing is kept</td></tr>
+</tbody>
+</table>
+<p class="cap">Table 1 — The landscape Nnọọ enters. Competitive detail to be refreshed with a proper audit before fundraising.</p>
+<h3>Why tone matters</h3>
+<p>Igbo is tonal: the same letters carry different meanings depending on pitch. Text-only learning cannot teach this. Learners need to <strong>hear</strong> real speakers and get feedback on their own voice — which is exactly what an elder archive plus pronunciation feedback provides.</p>
+
+<h2><span class="n">03</span>The solution</h2>
+<p>Nnọọ is not one app but a small constellation that shares one visual language and one data spine: the recording.</p>
+<table>
+<thead><tr><th>Surface</th><th>Who uses it</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Nnọọ Learn (iOS / Android)</td><td>Diaspora children &amp; adults</td><td>10-minute lessons, tonal pronunciation feedback, daily proverb, flashcards</td></tr>
+<tr><td>Ọbá Archive (in-app)</td><td>Anyone</td><td>Browse and listen to elder recordings with full provenance</td></tr>
+<tr><td>Facilitator Mode (tablet)</td><td>Community volunteers</td><td>Field-recording tool: capture audio, consent and metadata cleanly while sitting with an elder</td></tr>
+<tr><td>Ọha Community (in-app)</td><td>Diaspora Igbo</td><td>Find people by state, LGA, hometown, dialect; threads; local meetups</td></tr>
+<tr><td>Ikpe — the council (in-app)</td><td>Kin from the recording's hometown</td><td>Community review: every new recording waits here until kin vote to keep it, wait, or not publish</td></tr>
+<tr><td>Marketing site</td><td>Public, donors, press</td><td>Explain the mission, invite contribution, take donations</td></tr>
+</tbody>
+</table>
+<p class="cap">Table 2 — Product surfaces. Names are in Igbo on purpose: Ọbá means storehouse, Ọha means the gathering.</p>
+
+<h2><span class="n">04</span>How it works, end to end</h2>
+<p>The whole business is one loop. Each step produces the input for the next.</p>
+<div class="flow">
+<div><b>01 · RECRUIT</b>Social and hometown unions surface a family with an elder willing to share.</div>
+<div><b>02 · CONSENT</b>A facilitator explains ownership; elder signs co-ownership consent.</div>
+<div><b>03 · RECORD</b>Facilitator Mode captures audio + who / where / when / dialect.</div>
+<div><b>04 · JUDGE &amp; KEEP</b>Kin from the same hometown review it in Ikpe; once passed, it is stored in Ọbá with provenance.</div>
+<div><b>05 · TEACH</b>Words, phrases and proverbs become lessons in Nnọọ Learn.</div>
+<div><b>06 · LEARN</b>Learners practise and get tonal feedback against real voices.</div>
+<div><b>07 · GATHER</b>Learners find their hometown in Ọha and share progress with family.</div>
+<div><b>08 · RETURN</b>Families put forward their own elders — and the loop restarts.</div>
+</div>
+<p class="cap">Figure 1 — The preservation–learning loop. Social media feeds steps 01, 07 and 08.</p>
+<h3>What a recording contains</h3>
+<ul>
+<li><strong>Audio</strong> — the original, never overwritten.</li>
+<li><strong>Provenance</strong> — elder's name, year of birth (or estimate), town, LGA, state, dialect; facilitator's name; date and place.</li>
+<li><strong>Consent</strong> — signed co-ownership record and the elder's chosen visibility (public, community-only, family-only).</li>
+<li><strong>Transcript &amp; translation</strong> — Igbo with diacritics, English translation, gloss, reviewer name.</li>
+<li><strong>Tags</strong> — pillar (proverb, song, recipe, ceremony, history), topic, and lesson links.</li>
+</ul>
+
+
+<h2><span class="n">05</span>Product features</h2>
+<p>What each surface does, screen by screen. <span class="tag">In design</span> means it is already drawn in the UI kits; <span class="tag v">Proposed</span> means it is planned but not yet designed.</p>
+
+<h3>Nnọọ Learn — the learner app</h3>
+<p>Main tabs: <strong>Learn</strong>, <strong>Ọbá</strong>, <strong>Ọha</strong>, <strong>Ikpe</strong> (with a badge showing recordings waiting for your vote), and <strong>You</strong>.</p>
+<table>
+<thead><tr><th>Feature</th><th>What it does</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Home greeting</td><td>Opens with "Nnọọ, [name]." and a gentle streak count — never a penalty for missing a day ("Welcome back. The words waited for you.")</td><td><span class="tag">In design</span></td></tr>
+<tr><td>Today's lesson</td><td>A themed set (e.g. "Words for home": ụlọ, ezi, ọnụ ụzọ) split into 3 short parts with a progress bar</td><td><span class="tag">In design</span></td></tr>
+<tr><td>Say the word</td><td>Shows the Igbo word, phonetic spelling and meaning; learner holds the mic button and speaks</td><td><span class="tag">In design</span></td></tr>
+<tr><td>Tone target &amp; feedback</td><td>Visual bars show the tone pattern (e.g. low then high); after speaking the learner hears "Ọ dị mma. Your tone was right." or a specific hint on which syllable to lift</td><td><span class="tag">In design</span></td></tr>
+<tr><td>Hear the elder</td><td>Every word and phrase plays in a real elder's voice, credited by name and dialect</td><td><span class="tag v">Proposed</span></td></tr>
+<tr><td>Proverb of the day (Ilu ụbọchị)</td><td>Igbo original, translation, dialect and region chips; links to the elder recording</td><td><span class="tag">In design</span></td></tr>
+<tr><td>Flashcards &amp; review</td><td>Spaced review of words already learnt</td><td><span class="tag v">Proposed</span></td></tr>
+<tr><td>Dialect preference</td><td>Learner chooses their family's dialect so lessons use matching voices where available</td><td><span class="tag v">Proposed</span></td></tr>
+<tr><td>Family plan &amp; sharing</td><td>Several learners under one plan; a child can send a recorded phrase to a grandparent</td><td><span class="tag v">Proposed</span></td></tr>
+<tr><td>You (profile)</td><td>Hometown, dialect, progress, family members, privacy settings</td><td><span class="tag v">Proposed</span></td></tr>
+</tbody>
+</table>
+
+<h3>Ọbá — the archive</h3>
+<table>
+<thead><tr><th>Feature</th><th>What it does</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Browse &amp; filter</td><td>All recordings, filterable by type: proverbs, stories, recipes, songs (and crafts, place-lore)</td><td><span class="tag">In design</span></td></tr>
+<tr><td>Recording card</td><td>Title, elder's name, town and state, duration, play button</td><td><span class="tag">In design</span></td></tr>
+<tr><td>Provenance panel</td><td>Who recorded it, with whom, where, when, which dialect, and who it is shared with</td><td><span class="tag">In design</span></td></tr>
+<tr><td>Visibility levels</td><td>Elder chooses: everyone, people from a state or hometown, or family only</td><td><span class="tag">In design</span></td></tr>
+<tr><td>Transcript &amp; translation</td><td>Igbo text with diacritics alongside English, synced to audio</td><td><span class="tag v">Proposed</span></td></tr>
+<tr><td>Search by place &amp; dialect</td><td>Find everything from your hometown, LGA or dialect</td><td><span class="tag v">Proposed</span></td></tr>
+<tr><td>Sticky audio player</td><td>Keeps playing while browsing</td><td><span class="tag">In design</span></td></tr>
+</tbody>
+</table>
+
+<h3>Facilitator Mode — the field-recording tool</h3>
+<p>A tablet layout with a fixed left panel (session, checklist, reassurance) and a main area that moves through four steps.</p>
+<table>
+<thead><tr><th>Feature</th><th>What it does</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Session card</td><td>Elder's name, town, age and consent date stay visible the whole time</td><td><span class="tag">In design</span></td></tr>
+<tr><td>Checklist</td><td>Quiet room · mic level good · consent recorded · topic chosen · recording saved</td><td><span class="tag">In design</span></td></tr>
+<tr><td>Consent capture</td><td>Explains ownership in plain words; records the elder's agreement (signature or spoken consent)</td><td><span class="tag">In design</span></td></tr>
+<tr><td>Topic picker</td><td>Story, proverb, song, recipe, craft, place-lore — so the recording reaches the right learners later</td><td><span class="tag">In design</span></td></tr>
+<tr><td>Recording screen</td><td>One large stop button, timer, level check, pause, "add note"; headline reads "Take your time. There is no hurry."</td><td><span class="tag">In design</span></td></tr>
+<tr><td>Review before saving</td><td>Play back, confirm tags (topic, town, dialect, year), read the provenance statement, set visibility, then "Save to Ọbá" or "Record more"</td><td><span class="tag">In design</span></td></tr>
+<tr><td>Offline capture &amp; sync</td><td>Records without internet in villages; uploads when connected</td><td><span class="tag v">Proposed</span></td></tr>
+<tr><td>Training &amp; guidance</td><td>Short in-app lessons on consent, mic placement and cultural protocol</td><td><span class="tag v">Proposed</span></td></tr>
+</tbody>
+</table>
+
+<h3>Ọha — the community</h3>
+<table>
+<thead><tr><th>Feature</th><th>What it does</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Your hometown card</td><td>How many people from your town are in Ọha and where they live (e.g. London, Atlanta, Lagos)</td><td><span class="tag">In design</span></td></tr>
+<tr><td>Hometown feed</td><td>Posts from people of the same town — questions ("does anyone remember this song?") and news of new recordings</td><td><span class="tag">In design</span></td></tr>
+<tr><td>People near you</td><td>Find others from your hometown in your city</td><td><span class="tag">In design</span></td></tr>
+<tr><td>Nominate an elder</td><td>Put forward a relative to be recorded; routes to a facilitator</td><td><span class="tag v">Proposed</span></td></tr>
+<tr><td>Meetups &amp; events</td><td>Local gatherings, recording drives, festival days</td><td><span class="tag v">Proposed</span></td></tr>
+</tbody>
+</table>
+
+<h3>Ikpe — the council</h3>
+<div class="callout arch">
+<p class="serif" style="font-size:18px;margin:0 0 6px">"Igbo enwe eze." — The Igbo have no king.</p>
+<p>Ikpe (judgement) is where the community decides what enters the archive. No company, editor or algorithm publishes a recording on its own: every recording waits in Ikpe until the people — especially kin from the same hometown — decide it is ready. It turns the Igbo tradition of consensus-based decisions into the archive's quality and consent check.</p>
+</div>
+<table>
+<thead><tr><th>Feature</th><th>What it does</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Pending &amp; Passed lists</td><td>Two views: recordings still waiting for a decision, and recordings the council has passed into Ọbá</td><td><span class="tag">In design</span></td></tr>
+<tr><td>Recording card</td><td>Title (e.g. "The story of ọjị — the kola nut"), elder's name and age, town and state, length, and when it was submitted</td><td><span class="tag">In design</span></td></tr>
+<tr><td>Three-way vote</td><td><strong>Keep</strong> (publish), <strong>Wait</strong> (not yet — needs correction, context or family discussion), <strong>No</strong> (should not be published)</td><td><span class="tag">In design</span></td></tr>
+<tr><td>Kin quorum</td><td>A recording needs a set number of votes from kin before a decision counts (e.g. 51 of 60 reached); progress shown as a bar</td><td><span class="tag">In design</span></td></tr>
+<tr><td>Hometown weighting</td><td>Kin from the recording's hometown are the core voters; wider Ọha members may be able to comment</td><td><span class="tag v">Proposed</span></td></tr>
+<tr><td>Tab badge</td><td>Shows how many recordings are waiting for your vote</td><td><span class="tag">In design</span></td></tr>
+<tr><td>Reasons &amp; discussion</td><td>Voters choosing Wait or No can say why (wrong name, sacred content, needs the family's agreement)</td><td><span class="tag v">Proposed</span></td></tr>
+<tr><td>Elder &amp; family override</td><td>The elder and their family can withdraw or restrict a recording at any time, whatever the vote</td><td><span class="tag v">Proposed</span></td></tr>
+</tbody>
+</table>
+<p class="cap">Example from the designs: "The story of ọjị" by Papa Emeka Okafor (83, Nnewi) — quorum 51/60, 47 keep, 3 wait, 1 no. "Ofe nsala — a wedding soup" by Auntie Chinwe (62, Owerri) — quorum 12/40, still open.</p>
+<p><strong>Rules to settle</strong> <span class="tag v">Validate</span>: who counts as kin and how that is verified; how the quorum size is set per hometown; what share of Keep votes passes a recording; how long voting stays open; how a "No" is handled; and how to protect small hometowns with few members.</p>
+
+<h3>Marketing site</h3>
+<p>One mission-led page: warm hero, the "two hands, one body" panels (learn + archive), a proverb block, three calls to action (learn, record, give), and a footer link to the elder-consent policy. <span class="tag">In design</span></p>
+
+<h2><span class="n">06</span>How each person uses it</h2>
+
+<h3>A facilitator's session</h3>
+<ol>
+<li><strong>Gets set up.</strong> Signs up through Ọha or a hometown union, completes short training, receives or uses a tablet/phone.</li>
+<li><strong>Arranges a visit.</strong> Agrees a time with the elder and family; chooses a quiet room.</li>
+<li><strong>Opens a session.</strong> Enters the elder's name, town, age and dialect; the checklist confirms room and mic level.</li>
+<li><strong>Takes consent.</strong> Reads the ownership explanation aloud; the elder agrees and chooses who may hear the recording.</li>
+<li><strong>Picks a topic.</strong> Story, proverb, song, recipe, craft or place-lore.</li>
+<li><strong>Records.</strong> Lets the elder lead, pauses when needed, adds notes on names and places mentioned.</li>
+<li><strong>Reviews and saves.</strong> Plays back, checks tags and the provenance statement, saves to Ọbá. The family receives a copy.</li>
+<li><strong>Follows up.</strong> A reviewer transcribes and checks it; the facilitator is credited when it goes live.</li>
+</ol>
+
+<h3>A learner's day</h3>
+<ol>
+<li><strong>Joins.</strong> Downloads the app, picks their hometown and family dialect, or is added to a family plan by a parent.</li>
+<li><strong>Opens the app.</strong> Greeted with "Nnọọ, [name]." and today's lesson.</li>
+<li><strong>Learns.</strong> Hears each word in an elder's voice, says it, sees the tone pattern, gets feedback, tries again if needed.</li>
+<li><strong>Reads the proverb of the day.</strong> Taps through to hear the elder who shared it.</li>
+<li><strong>Explores Ọbá.</strong> Listens to stories and songs from their own hometown.</li>
+<li><strong>Connects in Ọha.</strong> Finds people from the same town; shares a phrase with a grandparent.</li>
+<li><strong>Gives back.</strong> Nominates their own elder to be recorded — which restarts the loop.</li>
+</ol>
+
+<h3>A kin member voting in Ikpe</h3>
+<ol>
+<li><strong>Is notified.</strong> A badge on the Ikpe tab shows a new recording from their hometown is waiting.</li>
+<li><strong>Listens.</strong> Plays the full recording and reads the elder's details and provenance.</li>
+<li><strong>Judges.</strong> Votes Keep, Wait or No — and, if Wait or No, says why.</li>
+<li><strong>Watches the quorum.</strong> Sees how many kin have voted and how close the recording is to a decision.</li>
+<li><strong>Sees the outcome.</strong> Once passed, the recording moves to Ọbá and may become lessons; if held, the facilitator and family are told what needs fixing.</li>
+</ol>
+
+<h3>An elder's experience</h3>
+<ol>
+<li>Is invited through family, a facilitator or a hometown union — never cold-approached.</li>
+<li>Hears plainly that the recording belongs to them and their community, and chooses who may hear it.</li>
+<li>Speaks at their own pace, on a subject they choose.</li>
+<li>Receives a copy for the family and is named whenever the recording is used.</li>
+<li>Can change visibility or withdraw at any time through the facilitator or family.</li>
+</ol>
+
+<h3>A parent or family organiser</h3>
+<ol>
+<li>Sets up a family plan and adds children.</li>
+<li>Sees each child's progress and the words they have learnt.</li>
+<li>Arranges for a grandparent to be recorded so the children learn from their own family's voice.</li>
+</ol>
+
+<h2><span class="n">07</span>Who it is for</h2>
+<table>
+<thead><tr><th>Audience</th><th>What they need</th><th>What Nnọọ gives them</th></tr></thead>
+<tbody>
+<tr><td>Elders</td><td>Respect; control over their words; to be remembered by name</td><td>Named credit, co-ownership, a say in who hears them, copies for their family</td></tr>
+<tr><td>Facilitators</td><td>A simple, dignified way to help; recognition</td><td>Training, a field tool that does the admin, public credit, stipends where funded</td></tr>
+<tr><td>Diaspora children (6–16)</td><td>Short, warm lessons; a reason to speak to grandparents</td><td>Real voices, tone feedback, family-connected progress</td></tr>
+<tr><td>Diaspora adults &amp; parents</td><td>To reconnect, and to pass the language on</td><td>Self-paced learning, hometown archive, community</td></tr>
+<tr><td>Funders &amp; institutions</td><td>Credible, ethical, measurable preservation</td><td>Transparent methodology, provenance data, clear impact metrics</td></tr>
+</tbody>
+</table>
+<p class="cap">Table 3 — Audiences and value. Language: always "learners, elders, facilitators, contributors" — never "users".</p>
+
+<h2><span class="n">08</span>Business model</h2>
+<p>Nnọọ is structured as a <strong>mission-first hybrid</strong>: the archive is a public good and stays free; learning products generate revenue that sustains it. <span class="tag v">Validate</span> legal structure (nonprofit, social enterprise, or nonprofit with a trading arm) with counsel in Nigeria and the primary diaspora markets.</p>
+<table>
+<thead><tr><th>Stream</th><th>Model</th><th>Role</th></tr></thead>
+<tbody>
+<tr><td>Grants &amp; foundations</td><td>Cultural heritage, language and education funds</td><td>Funds the archive, facilitator stipends, early build</td></tr>
+<tr><td>Learner subscriptions</td><td>Free core lessons; paid family plan for full curriculum and feedback</td><td>Main recurring revenue</td></tr>
+<tr><td>Institutional licences</td><td>Saturday schools, churches, cultural associations, universities</td><td>Bulk seats + teacher tools</td></tr>
+<tr><td>Individual giving</td><td>One-off and monthly donations ("an hour with an elder costs about $40 to archive")</td><td>Direct archive funding; strongest brand story</td></tr>
+<tr><td>Hometown sponsorship</td><td>Unions or diaspora chapters fund recording drives in their town</td><td>Scales the archive place by place</td></tr>
+</tbody>
+</table>
+<p class="cap">Table 4 — Proposed revenue mix. Pricing and the $40/hour figure are working estimates to be costed.</p>
+<div class="callout arch">
+<p><strong>What is never for sale:</strong> elder recordings, personal data, or access to the archive. The archive is not monetised, licensed to third parties, or used to train outside AI models without the explicit consent of elders and their communities.</p>
+</div>
+<h3>Where the money goes</h3>
+<ul>
+<li><strong>Field work</strong> — facilitator training and stipends, travel, recording kits.</li>
+<li><strong>Archive care</strong> — transcription, review, translation, long-term storage and backup.</li>
+<li><strong>Product</strong> — the apps, pronunciation-feedback model, content design.</li>
+<li><strong>Community &amp; brand</strong> — social, events, partnerships.</li>
+</ul>
+
+<h2><span class="n">09</span>Go-to-market</h2>
+<h3>Channels</h3>
+<ul>
+<li><strong>Hometown unions &amp; associations</strong> — the most trusted door into both elders and diaspora families.</li>
+<li><strong>Churches, Saturday schools, cultural festivals</strong> — where diaspora families already gather (Igbo Day, New Yam Festival).</li>
+<li><strong>Social media</strong> — the public face, run by the tiered system in the playbook.</li>
+<li><strong>Press &amp; partners</strong> — heritage institutions, universities, diaspora media.</li>
+</ul>
+<h3>Social strategy in one table</h3>
+<table>
+<thead><tr><th>Tier</th><th>Platforms</th><th>Cadence</th><th>Job</th></tr></thead>
+<tbody>
+<tr><td>Home</td><td>Instagram, TikTok, YouTube</td><td>3× / week + stories</td><td>Reach and discovery; native video and carousels</td></tr>
+<tr><td>Broadcast</td><td>X, LinkedIn</td><td>Weekly</td><td>Funders, press, professionals, facilitator hiring</td></tr>
+<tr><td>Placeholder</td><td>Facebook (Twitch, Threads later)</td><td>Monthly / milestones</td><td>Own the name; serve community groups; point home</td></tr>
+</tbody>
+</table>
+<p class="cap">Table 5 — Platform tiers. Full detail, 9 content pillars and 27 templates in the <a href="Nnoo Social Brand Playbook.html">Social Brand Playbook</a>.</p>
+<p><strong>Content mix:</strong> roughly 40% language (proverb, word of the day), 30% archive (elders, hometowns, field notes), 20% community (diaspora voices, culture explainers), 10% product and calls to action. The archive is the advertisement.</p>
+
+<h2><span class="n">10</span>Brand</h2>
+<p>The brand is the methodology made visible: warm, slow, specific, credited.</p>
+<ul>
+<li><strong>Voice</strong> — a patient relative talking to a younger relative. Reverent and warm, with moments of encouragement. No hype, no emoji in our own copy, Igbo never italicised, diacritics never stripped.</li>
+<li><strong>Colour</strong> — clay (brand), marigold (accent), forest (archive), plum (community), on warm bone and cream neutrals.</li>
+<li><strong>Type</strong> — Outfit for display, DM Sans for body, Fraunces reserved for elders and archive content.</li>
+<li><strong>Mark</strong> — two arcs meeting the dot-below diacritic; abstract and original, deliberately not a traditional motif.</li>
+</ul>
+<p>Assets: <a href="Nnoo Logo Variations.html">Logo Variations</a> (36 variants in SVG and PNG, <code>assets/logo/</code>) and the <a href="Nnoo Social Brand Playbook.html">Social Brand Playbook</a>.</p>
+
+<h2><span class="n">11</span>Operations</h2>
+<h3>Facilitator network</h3>
+<p>Facilitators are community volunteers — often a grandchild, niece or neighbour — trained to record respectfully. They complete a short training covering consent, recording technique, metadata and cultural protocol, then use Facilitator Mode on a tablet or phone. Quality is checked by a reviewer before anything is published.</p>
+<h3>Content pipeline</h3>
+<ol>
+<li>Recording uploaded with consent and metadata.</li>
+<li>Transcription and translation by a qualified speaker of that dialect.</li>
+<li>Staff check for technical quality and obvious sensitivity issues.</li>
+<li><strong>Ikpe:</strong> kin from the hometown vote Keep, Wait or No until quorum is reached.</li>
+<li>Publication to Ọbá at the elder's chosen visibility — or back to the facilitator with the council's reasons.</li>
+<li>Selection of suitable material for lessons and social posts — always attributed.</li>
+</ol>
+<h3>Team roles (initial)</h3>
+<p>Founder / director · product &amp; engineering lead · linguist / content lead · community &amp; facilitator lead · social &amp; brand manager · part-time reviewers and transcribers per dialect. <span class="tag v">Validate</span> against actual team and budget.</p>
+
+<h2><span class="n">12</span>Ethics &amp; governance</h2>
+<p>For a preservation project, trust is the product. These rules are non-negotiable.</p>
+<ul>
+<li><strong>Consent &amp; co-ownership.</strong> Every elder signs a consent record that names them as co-owner of their recordings and lets them change visibility or withdraw.</li>
+<li><strong>Attribution.</strong> Elders are always named with place and dialect. No anonymous "an elder said".</li>
+<li><strong>Minors.</strong> Learner stories involving under-18s require written guardian permission, named in the caption.</li>
+<li><strong>Cultural IP.</strong> Uli, nsibidi, akwete and other traditional visual forms are not used in the brand. If they are ever used, they are commissioned from Igbo artists with credit and payment.</li>
+<li><strong>No synthetic likeness.</strong> No AI-generated Igbo faces or voices presented as real people.</li>
+<li><strong>Dialect equity.</strong> No dialect is presented as "correct". Gaps in representation are reported openly.</li>
+<li><strong>Ikpe — community judgement.</strong> No recording is published without passing the kin council. The company does not overrule a council "No"; only the elder and family can override, and only to restrict.</li>
+<li><strong>Elder council.</strong> An advisory council of elders from several states reviews voice, naming, Ikpe rules and sensitive content before launch and at least yearly.</li>
+<li><strong>Data.</strong> Recordings stored with redundant backups; personal data minimised; clear privacy policy compliant with Nigeria's data protection law and those of diaspora markets (e.g. GDPR). <span class="tag v">Validate</span> with counsel.</li>
+</ul>
+
+<h2><span class="n">13</span>Roadmap</h2>
+<table>
+<thead><tr><th>Phase</th><th>Timing</th><th>Goals</th></tr></thead>
+<tbody>
+<tr><td>0 · Foundations</td><td>Months 0–3</td><td>Brand and social profiles live; consent template; elder council formed; facilitator training v1; first 10 elder recordings</td></tr>
+<tr><td>1 · Pilot</td><td>Months 3–9</td><td>1–2 states, ~5 hometowns; Facilitator Mode beta; Ọbá read-only; 3 social pillars at full cadence; first grant secured</td></tr>
+<tr><td>2 · Learn launch</td><td>Months 9–15</td><td>Nnọọ Learn public release with tone feedback; free tier + family plan; Saturday-school pilot; Ọha beta</td></tr>
+<tr><td>3 · Scale</td><td>Months 15–24</td><td>All five South-East states plus Delta and Rivers communities; hometown sponsorship programme; institutional licences</td></tr>
+</tbody>
+</table>
+<p class="cap">Table 6 — Phased roadmap. Timings are relative to kickoff and depend on funding.</p>
+
+<h2><span class="n">14</span>How success is measured</h2>
+<table>
+<thead><tr><th>Area</th><th>Metric</th><th>Why it matters</th></tr></thead>
+<tbody>
+<tr><td>Preservation</td><td>Hours recorded; elders recorded; dialects and LGAs covered; % with complete provenance</td><td>The core mission</td></tr>
+<tr><td>Community</td><td>Active facilitators; hometown unions partnered; elder referrals from learners</td><td>Health of the loop</td></tr>
+<tr><td>Ikpe</td><td>Active kin voters per hometown; median time to quorum; share of recordings passed, held or declined</td><td>Community ownership in practice</td></tr>
+<tr><td>Learning</td><td>Weekly active learners; lesson completion; tone-accuracy improvement over 6 weeks</td><td>Proof the teaching works</td></tr>
+<tr><td>Sustainability</td><td>Grant income; paying families; donor retention; cost per archived hour</td><td>Ability to keep going</td></tr>
+<tr><td>Social</td><td>Saves and shares (not just likes); profile-to-app clicks; facilitator sign-ups from social</td><td>Whether the brand moves people</td></tr>
+</tbody>
+</table>
+<p class="cap">Table 7 — Key metrics. Set numeric targets after the pilot establishes baselines.</p>
+
+<h2><span class="n">15</span>Risks &amp; mitigations</h2>
+<table>
+<thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
+<tbody>
+<tr><td>Community distrust (extraction fears)</td><td>Co-ownership consent, elder council, hometown-union partnerships, visible credit</td></tr>
+<tr><td>Elders pass before recording</td><td>Prioritise the oldest speakers and rarest dialects first</td></tr>
+<tr><td>Tone-feedback accuracy</td><td>Train on consented archive audio; linguist review; launch with honest "beta" framing</td></tr>
+<tr><td>Funding gaps</td><td>Diversified mix: grants, families, institutions, hometown sponsorship</td></tr>
+<tr><td>Ikpe stalls (quorum never reached) or is gamed</td><td>Quorum scaled to hometown size; time limits with facilitator follow-up; verified kin membership; open vote counts</td></tr>
+<tr><td>Dialect politics</td><td>Equal presentation; transparency about coverage; no "standard" imposed</td></tr>
+<tr><td>Brand drift on social</td><td>Playbook guardrails, template library, pre-publish attribution check</td></tr>
+<tr><td>Data loss or misuse</td><td>Redundant storage, access controls, no third-party licensing</td></tr>
+</tbody>
+</table>
+<p class="cap">Table 8 — Principal risks.</p>
+
+<h2><span class="n">16</span>Open decisions</h2>
+<ol>
+<li>Legal structure and home jurisdiction.</li>
+<li>Pilot states and first five hometowns.</li>
+<li>Subscription pricing and what sits in the free tier.</li>
+<li>Elder council membership and terms.</li>
+<li>Whether to commission an Igbo artist for a co-authored mark and icon set.</li>
+<li>Tone-feedback technology: build, partner, or license.</li>
+</ol>
+
+<div class="callout clay">
+<p class="serif" style="font-size:19px;line-height:1.4;margin:0 0 8px">The standard: a post, a lesson or a recording is ready when an Igbo grandmother could see it, recognise the care in it, and not feel the need to correct anything.</p>
+</div>
+
+<h2 class="appx"><span class="n">Appendix A</span>Glossary</h2>
+<table>
+<thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td>Nnọọ</td><td>"Welcome" — the brand name</td></tr>
+<tr><td>Ndị Igbo</td><td>The Igbo people</td></tr>
+<tr><td>Ọbá</td><td>Storehouse, treasury — the archive</td></tr>
+<tr><td>Ọha</td><td>The community, the gathering — the community layer</td></tr>
+<tr><td>Ilu</td><td>Proverb</td></tr>
+<tr><td>Okwu</td><td>Word</td></tr>
+<tr><td>Obodo</td><td>Town, hometown</td></tr>
+<tr><td>Ikpe</td><td>Judgement — the kin council that decides which recordings enter Ọbá</td></tr>
+<tr><td>Igbo enwe eze</td><td>"The Igbo have no king" — the principle of decision by consensus behind Ikpe</td></tr>
+<tr><td>Quorum</td><td>The minimum number of kin votes needed before an Ikpe decision counts</td></tr>
+<tr><td>Daalụ</td><td>Thank you</td></tr>
+<tr><td>LGA</td><td>Local Government Area — Nigeria's administrative unit below state</td></tr>
+<tr><td>Facilitator</td><td>Trained community volunteer who records elders</td></tr>
+<tr><td>Provenance</td><td>The record of who, where, when and which dialect for each recording</td></tr>
+</tbody>
+</table>
+
+<h2><span class="n">Appendix B</span>Project files</h2>
+<table>
+<thead><tr><th>File</th><th>Contents</th></tr></thead>
+<tbody>
+<tr><td><a href="Nnoo Social Brand Playbook.html">Social Brand Playbook</a></td><td>Platform tiers, voice, profiles, 9 pillars, 27 post templates, captions, cadence, guardrails</td></tr>
+<tr><td><a href="Nnoo Logo Variations.html">Logo Variations</a></td><td>Usage rules and preview of all logo variants</td></tr>
+<tr><td><code>assets/logo/</code></td><td>36 logo files in SVG and PNG</td></tr>
+<tr><td><code>assets/tokens.css</code></td><td>Colour, type, spacing and motion tokens</td></tr>
+</tbody>
+</table>
+
+</div>
+</doc-page>
+<script src="assets/doc-page.js"></script>
+</body>
+</html>

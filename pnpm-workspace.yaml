@@ -1,0 +1,12 @@
+packages:
+  - apps/*
+  - packages/*
+  - tools/*
+
+# Install scripts are allowed per package after review (05 §3).
+allowBuilds:
+  esbuild: true
+  # Testcontainers' Docker client: optional native speedups only; not needed.
+  cpu-features: false
+  ssh2: false
+  protobufjs: false

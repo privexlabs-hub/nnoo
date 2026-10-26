@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nnọọ — Logo Variations</title>
+  <link rel="icon" href="assets/logo/favicon-clay.svg" />
+  <link rel="stylesheet" href="assets/tokens.css" />
+  <link rel="stylesheet" href="assets/playbook.css" />
+  <style>
+    .logo-page { padding: var(--s-9) 0; }
+    .lg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--s-5); }
+    .lg-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-lg);
+      overflow: hidden; box-shadow: var(--shadow-xs); display: flex; flex-direction: column;
+    }
+    .lg-card__art {
+      aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+      padding: var(--s-5); position: relative;
+    }
+    .lg-card__art img { width: 65%; height: 65%; object-fit: contain; }
+    .lg-card__art--wide { aspect-ratio: 16/9; }
+    .lg-card__art--wide img { width: 80%; }
+    .lg-card__meta {
+      padding: var(--s-3) var(--s-4); border-top: 1px solid var(--ink-100);
+      background: var(--paper);
+    }
+    .lg-card__name {
+      font-family: var(--font-display); font-weight: 600; font-size: var(--text-sm);
+      color: var(--ink-900); margin: 0;
+    }
+    .lg-card__path {
+      font-family: var(--font-mono); font-size: 10px; color: var(--fg-subtle);
+      margin-top: 2px; word-break: break-all;
+    }
+    .lg-card__note {
+      font-family: var(--font-body); font-size: var(--text-xs); color: var(--fg-muted);
+      margin: 6px 0 0; line-height: 1.4;
+    }
+    /* swatch backgrounds for the art area */
+    .bg-bone   { background: var(--bone); }
+    .bg-cream  { background: var(--cream); }
+    .bg-paper  { background: var(--paper); }
+    .bg-clay   { background: var(--brand); }
+    .bg-ink    { background: var(--ink-900); }
+    .bg-forest { background: var(--forest-500); }
+    .bg-plum   { background: var(--plum-500); }
+    .bg-mari   { background: var(--marigold-400); }
+    .bg-checker {
+      background-image:
+        linear-gradient(45deg, var(--ink-100) 25%, transparent 25%),
+        linear-gradient(-45deg, var(--ink-100) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, var(--ink-100) 75%),
+        linear-gradient(-45deg, transparent 75%, var(--ink-100) 75%);
+      background-size: 16px 16px;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+      background-color: var(--paper);
+    }
+    .lg-subhead {
+      font-family: var(--font-display); font-weight: 600; font-size: var(--text-md);
+      color: var(--fg-muted); margin: 0 0 var(--s-3); letter-spacing: -0.01em;
+    }
+    .lg-section {
+      margin-top: var(--s-9); padding-top: var(--s-7); border-top: 1px solid var(--border);
+    }
+    .lg-section:first-of-type { margin-top: 0; border-top: 0; padding-top: 0; }
+    .lg-clearspace-card .lg-card__art {
+      background:
+        repeating-linear-gradient(0deg, transparent 0 12px, rgba(200,90,38,0.12) 12px 13px),
+        repeating-linear-gradient(90deg, transparent 0 12px, rgba(200,90,38,0.12) 12px 13px),
+        var(--bone);
+    }
+    .scale-row { display: flex; align-items: flex-end; gap: var(--s-4); padding: var(--s-5);
+      background: var(--paper); border: 1px solid var(--border); border-radius: var(--r-lg); }
+    .scale-row img { display: block; }
+    .scale-row figcaption {
+      font-family: var(--font-mono); font-size: 11px; color: var(--fg-subtle); text-align: center; margin-top: 6px;
+    }
+    .home-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-body); font-size: var(--text-sm); font-weight: 600;
+      color: var(--brand); text-decoration: none; padding: var(--s-2) var(--s-3);
+      border-radius: var(--r-md); background: var(--brand-soft);
+    }
+  </style>
+</head>
+<body>
+
+<header class="cover" style="min-height: auto; padding-bottom: var(--s-7);">
+  <div class="cover__top">
+    <div class="cover__brand">
+      <img src="assets/logo/lockup-horizontal-primary.svg" alt="Nnọọ" style="height: 40px;" />
+      <span class="doc-kind">Logo · variations · v1.0</span>
+    </div>
+  </div>
+  <div class="cover__mid">
+    <p class="eyebrow" style="color: var(--brand); margin-bottom: var(--s-5);">Asset library</p>
+    <h1 class="cover__title" style="font-size: clamp(2.5rem, 6vw, 5rem);">36 ways to wear<br/>the same <span class="accent">mark.</span></h1>
+    <p class="cover__sub">Marks, submarks, wordmarks, lockups, tagline lockups, and social avatars. All in <code style="font-family: var(--font-mono); font-style: normal; color: var(--brand);">assets/logo/</code>.</p>
+  </div>
+  <div class="cover__bottom">
+    <a class="home-link" href="Nnoo Social Brand Playbook.html">← Back to playbook</a>
+  </div>
+</header>
+
+<main class="logo-page page">
+
+  <!-- ============================================================
+       USAGE RULES
+  ============================================================ -->
+  <section class="lg-section">
+    <span class="section-eyebrow">Usage</span>
+    <h2 class="section-title">Pick the right variation for the surface.</h2>
+
+    <div class="grid-3">
+      <div class="card">
+        <p class="card-eyebrow">Default — when in doubt</p>
+        <p class="card-title">Use <code style="font-family: var(--font-mono); color: var(--brand);">lockup-horizontal-primary.svg</code></p>
+        <p class="card-body">Clay mark + ink wordmark on light backgrounds. The right answer 80% of the time.</p>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">On dark backgrounds</p>
+        <p class="card-title">Use <code style="font-family: var(--font-mono); color: var(--brand);">lockup-horizontal-reversed.svg</code></p>
+        <p class="card-body">Same clay mark, but the wordmark switches to bone. Never invert the mark itself.</p>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">For favicons + ≤32px contexts</p>
+        <p class="card-title">Use <code style="font-family: var(--font-mono); color: var(--brand);">favicon-clay.svg</code></p>
+        <p class="card-body">Thicker strokes and a larger dot — readable at app-icon scale where the standard mark blurs.</p>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top: var(--s-6);">
+      <div class="card card--inset">
+        <p class="card-eyebrow">Clear space</p>
+        <p class="card-body">Minimum clear space = the height of the dot in the mark, in every direction. Never tuck other elements inside the ring.</p>
+        <div class="lg-clearspace-card" style="margin-top: var(--s-3);">
+          <div class="lg-card__art" style="aspect-ratio: 2.5/1;">
+            <img src="assets/logo/lockup-horizontal-primary.svg" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="card card--inset">
+        <p class="card-eyebrow">Min size</p>
+        <p class="card-body">Mark: 24px minimum (or 16px if you use the favicon variant). Horizontal lockup: 80px wide minimum. Stacked lockup: 96px wide. Below those, switch to the submark.</p>
+        <div class="scale-row" style="margin-top: var(--s-3);">
+          <figure><img src="assets/logo/mark-clay.svg" width="16" alt="" /><figcaption>16</figcaption></figure>
+          <figure><img src="assets/logo/mark-clay.svg" width="24" alt="" /><figcaption>24</figcaption></figure>
+          <figure><img src="assets/logo/mark-clay.svg" width="40" alt="" /><figcaption>40</figcaption></figure>
+          <figure><img src="assets/logo/mark-clay.svg" width="64" alt="" /><figcaption>64</figcaption></figure>
+          <figure><img src="assets/logo/mark-clay.svg" width="96" alt="" /><figcaption>96</figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MARKS
+  ============================================================ -->
+  <section class="lg-section">
+    <span class="section-eyebrow">Marks · circle + arcs + dot</span>
+    <h2 class="section-title">The mark — eleven contexts.</h2>
+    <p class="lg-subhead">Same geometry every time. Color shifts by surface context, never by whim.</p>
+
+    <div class="lg-grid">
+      <!-- Filled marks -->
+      <div class="lg-card">
+        <div class="lg-card__art bg-bone"><img src="assets/logo/mark-clay.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Mark — Clay <span class="tag" style="font-size: 9px; padding: 1px 6px;">Primary</span></p>
+          <p class="lg-card__path">assets/logo/mark-clay.svg</p>
+          <p class="lg-card__note">Default. Use on bone/cream/paper or white. The brand answer.</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art bg-bone"><img src="assets/logo/mark-ink.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Mark — Ink</p>
+          <p class="lg-card__path">assets/logo/mark-ink.svg</p>
+          <p class="lg-card__note">For mono / print / low-color contexts. Or on dark hero photos.</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art bg-ink"><img src="assets/logo/mark-bone.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Mark — Bone</p>
+          <p class="lg-card__path">assets/logo/mark-bone.svg</p>
+          <p class="lg-card__note">For use on ink, clay-700+, or any dark surface where the clay mark would blend.</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art bg-paper"><img src="assets/logo/mark-cream.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Mark — Cream</p>
+          <p class="lg-card__path">assets/logo/mark-cream.svg</p>
+          <p class="lg-card__note">For paper-on-paper subtle marks — e.g. document watermarks, certificate corners.</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art bg-bone"><img src="assets/logo/mark-marigold.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Mark — Marigold <span class="tag tag--accent" style="font-size: 9px; padding: 1px 6px;">Accent</span></p>
+          <p class="lg-card__path">assets/logo/mark-marigold.svg</p>
+          <p class="lg-card__note">Festive use only — Igbo Day, New Yam, milestone moments. Not for default chrome.</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art bg-bone"><img src="assets/logo/mark-forest.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Mark — Forest <span class="tag tag--archival" style="font-size: 9px; padding: 1px 6px;">Archive</span></p>
+          <p class="lg-card__path">assets/logo/mark-forest.svg</p>
+          <p class="lg-card__note">Reserved for archive / provenance contexts. Ọbá-tagged posts; recording credentials.</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art bg-bone"><img src="assets/logo/mark-plum.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Mark — Plum <span class="tag tag--community" style="font-size: 9px; padding: 1px 6px;">Community</span></p>
+          <p class="lg-card__path">assets/logo/mark-plum.svg</p>
+          <p class="lg-card__note">For Ọha community contexts only — hometown unions, gatherings, diaspora chapters.</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art bg-bone"><img src="assets/logo/mark-outline-clay.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Mark — Outline (clay)</p>
+          <p class="lg-card__path">assets/logo/mark-outline-clay.svg</p>
+          <p class="lg-card__note">For monogrammed merch, certificates, embossing. Not for screens at small sizes.</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art bg-ink"><img src="assets/logo/mark-outline-bone.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Mark — Outline (bone)</p>
+          <p class="lg-card__path">assets/logo/mark-outline-bone.svg</p>
+          <p class="lg-card__note">Outline on dark surfaces. Same merch / embossing use case.</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art bg-bone"><img src="assets/logo/mark-mono-bone.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Mark — Mono bone</p>
+          <p class="lg-card__path">assets/logo/mark-mono-bone.svg</p>
+          <p class="lg-card__note">Single-tone version for unusual surface colors where clay clashes.</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art bg-bone"><img src="assets/logo/mark-mono-ink.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Mark — Mono ink</p>
+          <p class="lg-card__path">assets/logo/mark-mono-ink.svg</p>
+          <p class="lg-card__note">Alias for the ink variant. Use when ordering single-color print.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SUBMARKS + FAVICONS
+  ============================================================ -->
+  <section class="lg-section">
+    <span class="section-eyebrow">Submarks &amp; favicons</span>
+    <h2 class="section-title">For when the circle won't fit, or the mark must read at 16px.</h2>
+
+    <div class="lg-grid">
+      <div class="lg-card">
+        <div class="lg-card__art bg-cream"><img src="assets/logo/submark-clay.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Submark — Clay</p>
+          <p class="lg-card__path">assets/logo/submark-clay.svg</p>
+          <p class="lg-card__note">Arcs + dot, no circle. For embroidery, embossing, narrow-rule contexts.</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art bg-cream"><img src="assets/logo/submark-ink.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Submark — Ink</p>
+          <p class="lg-card__path">assets/logo/submark-ink.svg</p>
+          <p class="lg-card__note">Mono ink version of the submark.</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art bg-ink"><img src="assets/logo/submark-bone.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Submark — Bone</p>
+          <p class="lg-card__path">assets/logo/submark-bone.svg</p>
+          <p class="lg-card__note">For use on dark or photo backgrounds.</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art bg-bone"><img src="assets/logo/favicon-clay.svg" alt="" style="width: 40%; height: 40%;" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Favicon — Clay <span class="tag" style="font-size: 9px; padding: 1px 6px;">≤32px</span></p>
+          <p class="lg-card__path">assets/logo/favicon-clay.svg</p>
+          <p class="lg-card__note">Simplified geometry — thicker strokes, larger dot. Use in <code style="font-family: var(--font-mono); color: var(--brand);">&lt;link rel="icon"&gt;</code>.</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art bg-bone"><img src="assets/logo/favicon-ink.svg" alt="" style="width: 40%; height: 40%;" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Favicon — Ink</p>
+          <p class="lg-card__path">assets/logo/favicon-ink.svg</p>
+          <p class="lg-card__note">For dark-mode favicons or mono-themed pages.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WORDMARK
+  ============================================================ -->
+  <section class="lg-section">
+    <span class="section-eyebrow">Wordmark</span>
+    <h2 class="section-title">"Nnọọ" — set in Outfit 700, tracked tight.</h2>
+    <p class="lg-subhead">Use sparingly. The mark + wordmark lockup is the preferred form; wordmark-only belongs in tight horizontal contexts (header bars, footer signatures).</p>
+
+    <div class="lg-grid">
+      <div class="lg-card">
+        <div class="lg-card__art lg-card__art--wide bg-bone"><img src="assets/logo/wordmark-ink.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Wordmark — Ink</p>
+          <p class="lg-card__path">assets/logo/wordmark-ink.svg</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art lg-card__art--wide bg-bone"><img src="assets/logo/wordmark-clay.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Wordmark — Clay</p>
+          <p class="lg-card__path">assets/logo/wordmark-clay.svg</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art lg-card__art--wide bg-ink"><img src="assets/logo/wordmark-bone.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Wordmark — Bone</p>
+          <p class="lg-card__path">assets/logo/wordmark-bone.svg</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       HORIZONTAL LOCKUPS
+  ============================================================ -->
+  <section class="lg-section">
+    <span class="section-eyebrow">Horizontal lockups</span>
+    <h2 class="section-title">Mark + wordmark, side-by-side.</h2>
+    <p class="lg-subhead">The everyday form. Banners, headers, signature lines, footers.</p>
+
+    <div class="lg-grid">
+      <div class="lg-card">
+        <div class="lg-card__art lg-card__art--wide bg-bone"><img src="assets/logo/lockup-horizontal-primary.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Horizontal — Primary <span class="tag" style="font-size: 9px; padding: 1px 6px;">Default</span></p>
+          <p class="lg-card__path">assets/logo/lockup-horizontal-primary.svg</p>
+          <p class="lg-card__note">Clay mark, ink wordmark, on any light surface.</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art lg-card__art--wide bg-ink"><img src="assets/logo/lockup-horizontal-reversed.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Horizontal — Reversed</p>
+          <p class="lg-card__path">assets/logo/lockup-horizontal-reversed.svg</p>
+          <p class="lg-card__note">Clay mark stays, wordmark becomes bone. For dark surfaces.</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art lg-card__art--wide bg-bone"><img src="assets/logo/lockup-horizontal-mono-ink.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Horizontal — Mono ink</p>
+          <p class="lg-card__path">assets/logo/lockup-horizontal-mono-ink.svg</p>
+          <p class="lg-card__note">Single-color print, fax, low-fidelity contexts.</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art lg-card__art--wide bg-ink"><img src="assets/logo/lockup-horizontal-mono-bone.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Horizontal — Mono bone</p>
+          <p class="lg-card__path">assets/logo/lockup-horizontal-mono-bone.svg</p>
+          <p class="lg-card__note">Mono variant for dark surfaces.</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art lg-card__art--wide bg-bone"><img src="assets/logo/lockup-horizontal-forest.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Horizontal — Forest <span class="tag tag--archival" style="font-size: 9px; padding: 1px 6px;">Archive</span></p>
+          <p class="lg-card__path">assets/logo/lockup-horizontal-forest.svg</p>
+          <p class="lg-card__note">For Ọbá archive contexts — provenance pages, recording credentials.</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art lg-card__art--wide bg-bone"><img src="assets/logo/lockup-horizontal-plum.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Horizontal — Plum <span class="tag tag--community" style="font-size: 9px; padding: 1px 6px;">Community</span></p>
+          <p class="lg-card__path">assets/logo/lockup-horizontal-plum.svg</p>
+          <p class="lg-card__note">For Ọha community contexts — chapter materials, gatherings.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       STACKED LOCKUPS
+  ============================================================ -->
+  <section class="lg-section">
+    <span class="section-eyebrow">Stacked lockups</span>
+    <h2 class="section-title">Mark above wordmark, centered.</h2>
+    <p class="lg-subhead">For square-ish containers — splash screens, name-tag chits, sticker centers.</p>
+
+    <div class="lg-grid">
+      <div class="lg-card">
+        <div class="lg-card__art bg-bone"><img src="assets/logo/lockup-stacked-primary.svg" alt="" style="width: 55%; height: 55%;" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Stacked — Primary</p>
+          <p class="lg-card__path">assets/logo/lockup-stacked-primary.svg</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art bg-ink"><img src="assets/logo/lockup-stacked-reversed.svg" alt="" style="width: 55%; height: 55%;" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Stacked — Reversed</p>
+          <p class="lg-card__path">assets/logo/lockup-stacked-reversed.svg</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art bg-bone"><img src="assets/logo/lockup-stacked-mono-ink.svg" alt="" style="width: 55%; height: 55%;" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Stacked — Mono ink</p>
+          <p class="lg-card__path">assets/logo/lockup-stacked-mono-ink.svg</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TAGLINE LOCKUPS
+  ============================================================ -->
+  <section class="lg-section">
+    <span class="section-eyebrow">Tagline lockups</span>
+    <h2 class="section-title">With "Welcome home." — splash &amp; marketing only.</h2>
+    <p class="lg-subhead">Reserved for the first impression — app splash, marketing site hero, the back of a business card. Not for chrome.</p>
+
+    <div class="lg-grid">
+      <div class="lg-card">
+        <div class="lg-card__art bg-bone"><img src="assets/logo/lockup-tagline-primary.svg" alt="" style="width: 60%; height: 60%;" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Tagline — Primary</p>
+          <p class="lg-card__path">assets/logo/lockup-tagline-primary.svg</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art bg-ink"><img src="assets/logo/lockup-tagline-reversed.svg" alt="" style="width: 60%; height: 60%;" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Tagline — Reversed</p>
+          <p class="lg-card__path">assets/logo/lockup-tagline-reversed.svg</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SOCIAL AVATARS
+  ============================================================ -->
+  <section class="lg-section">
+    <span class="section-eyebrow">Social avatars</span>
+    <h2 class="section-title">1024×1024 — circular-safe by default.</h2>
+    <p class="lg-subhead">All avatars are drawn so the mark sits inside the circular crop most platforms apply. Round versions are pre-cropped; square versions work for platforms that don't crop (e.g. LinkedIn page logo).</p>
+
+    <div class="lg-grid">
+      <div class="lg-card">
+        <div class="lg-card__art bg-bone"><img src="assets/logo/avatar-1024-clay.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Avatar — Clay square <span class="tag" style="font-size: 9px; padding: 1px 6px;">Default</span></p>
+          <p class="lg-card__path">assets/logo/avatar-1024-clay.svg</p>
+          <p class="lg-card__note">Square clay field, bone mark. The day-one avatar across all 6 platforms.</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art bg-bone"><img src="assets/logo/avatar-1024-clay-round.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Avatar — Clay round</p>
+          <p class="lg-card__path">assets/logo/avatar-1024-clay-round.svg</p>
+          <p class="lg-card__note">Pre-rounded version. Same mark — use where you control the crop.</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art bg-bone"><img src="assets/logo/avatar-1024-ink.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Avatar — Ink</p>
+          <p class="lg-card__path">assets/logo/avatar-1024-ink.svg</p>
+          <p class="lg-card__note">For dark-mode TikTok &amp; X if our clay avatar fights the chrome.</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art bg-bone"><img src="assets/logo/avatar-1024-cream.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Avatar — Cream</p>
+          <p class="lg-card__path">assets/logo/avatar-1024-cream.svg</p>
+          <p class="lg-card__note">Lighter alt for surfaces where clay clashes. Use rarely.</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art bg-bone"><img src="assets/logo/avatar-1024-wordmark-clay.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Avatar — Clay + wordmark</p>
+          <p class="lg-card__path">assets/logo/avatar-1024-wordmark-clay.svg</p>
+          <p class="lg-card__note">For LinkedIn company page logo (768px square, no circular crop).</p>
+        </div>
+      </div>
+      <div class="lg-card">
+        <div class="lg-card__art bg-bone"><img src="assets/logo/avatar-1024-wordmark-ink.svg" alt="" /></div>
+        <div class="lg-card__meta">
+          <p class="lg-card__name">Avatar — Ink + wordmark</p>
+          <p class="lg-card__path">assets/logo/avatar-1024-wordmark-ink.svg</p>
+          <p class="lg-card__note">Dark variant of the wordmark avatar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       DON'T
+  ============================================================ -->
+  <section class="lg-section">
+    <span class="section-eyebrow">Guardrails</span>
+    <h2 class="section-title">What never to do to the mark.</h2>
+
+    <div class="grid-3">
+      <div class="card" style="border-color: var(--clay-300);">
+        <div style="background: var(--bone); padding: var(--s-5); border-radius: var(--r-md); display: flex; justify-content: center; aspect-ratio: 1; align-items: center; position: relative;">
+          <img src="assets/logo/mark-clay.svg" style="width: 60%; transform: rotate(28deg);" alt="" />
+          <div style="position: absolute; right: 8px; bottom: 8px; padding: 2px 8px; background: var(--danger); color: #faf5ec; border-radius: 4px; font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;">Don't</div>
+        </div>
+        <p class="card-body" style="margin-top: var(--s-3);">Don't rotate, skew, or distort. The arcs and dot are positioned exactly. Mirroring breaks the meaning.</p>
+      </div>
+      <div class="card" style="border-color: var(--clay-300);">
+        <div style="background: linear-gradient(135deg, #ff00aa, #00bbff); padding: var(--s-5); border-radius: var(--r-md); display: flex; justify-content: center; aspect-ratio: 1; align-items: center; position: relative;">
+          <img src="assets/logo/mark-clay.svg" style="width: 60%;" alt="" />
+          <div style="position: absolute; right: 8px; bottom: 8px; padding: 2px 8px; background: var(--danger); color: #faf5ec; border-radius: 4px; font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;">Don't</div>
+        </div>
+        <p class="card-body" style="margin-top: var(--s-3);">Don't place on neon, gradient, or out-of-palette backgrounds. Stick to the design system surfaces.</p>
+      </div>
+      <div class="card" style="border-color: var(--clay-300);">
+        <div style="background: var(--bone); padding: var(--s-5); border-radius: var(--r-md); display: flex; justify-content: center; aspect-ratio: 1; align-items: center; position: relative;">
+          <svg width="60%" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="40" r="38" fill="#6d2c4f"/>
+            <path d="M22 32 Q40 14 58 32" stroke="#d9a019" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <path d="M22 48 Q40 66 58 48" stroke="#d9a019" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <circle cx="40" cy="40" r="4.5" fill="#d9a019"/>
+          </svg>
+          <div style="position: absolute; right: 8px; bottom: 8px; padding: 2px 8px; background: var(--danger); color: #faf5ec; border-radius: 4px; font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;">Don't</div>
+        </div>
+        <p class="card-body" style="margin-top: var(--s-3);">Don't mix brand colors inside the mark. The arc &amp; dot color must be bone or ink — never marigold/plum/forest.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <img src="assets/logo/mark-clay.svg" class="foot__mark" alt="Nnọọ" />
+  <div class="foot__line">Welcome home.</div>
+  <div class="foot__meta">Nnọọ · Logo variations · 36 assets · v1.0 · May 2026</div>
+</footer>
+
+</body>
+</html>
