@@ -74,6 +74,15 @@ def test_video_and_unknown_formats_are_rejected(tmp_path: Path):
     assert e.value.reason == "unreadable"
 
 
+def test_loudnorm_json_is_parsed_despite_trailing_log_lines():
+    stderr = (
+        "[Parsed_loudnorm_0 @ 0x1] \n{\n\t\"input_i\" : \"-22.05\",\n\t\"input_tp\" : \"-18.06\"\n}\n"
+        "[out#0/null @ 0x2] video:0KiB audio:750KiB\nsize=N/A time=00:00:02.00 bitrate=N/A speed=55.2x\n"
+    )
+    assert media.parse_loudnorm(stderr) == -22.05
+    assert media.parse_loudnorm("no json here") != media.parse_loudnorm("no json here")  # NaN
+
+
 def test_sha256_file(tmp_path: Path):
     f = tmp_path / "f"
     f.write_bytes(b"abc")

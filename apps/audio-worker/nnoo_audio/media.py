@@ -84,11 +84,16 @@ def measure_lufs(src: Path) -> float:
         ["ffmpeg", "-hide_banner", "-nostdin", "-i", str(src), "-af", "loudnorm=print_format=json", "-f", "null", "-"],
         capture_output=True, check=False, timeout=3600,
     )
-    text = r.stderr.decode(errors="replace")
-    start = text.rfind("{")
+    return parse_loudnorm(r.stderr.decode(errors="replace"))
+
+
+def parse_loudnorm(stderr: str) -> float:
+    """Integrated loudness from loudnorm's JSON block. ffmpeg logs more lines after it, so decode just the object."""
+    start = stderr.rfind("{")
     try:
-        return float(json.loads(text[start:])["input_i"])
-    except (ValueError, KeyError):
+        obj, _ = json.JSONDecoder().raw_decode(stderr[start:]) if start >= 0 else ({}, 0)
+        return float(obj["input_i"])
+    except (ValueError, KeyError, TypeError):
         return float("nan")
 
 
